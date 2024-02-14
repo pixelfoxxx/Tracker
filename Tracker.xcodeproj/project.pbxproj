@@ -9,21 +9,27 @@
 /* Begin PBXBuildFile section */
 		C37894152B794A2B004A5573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37894142B794A2B004A5573 /* AppDelegate.swift */; };
 		C37894172B794A2B004A5573 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37894162B794A2B004A5573 /* SceneDelegate.swift */; };
-		C37894192B794A2B004A5573 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37894182B794A2B004A5573 /* ViewController.swift */; };
 		C378941C2B794A2B004A5573 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C378941A2B794A2B004A5573 /* Main.storyboard */; };
 		C378941E2B794A2C004A5573 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C378941D2B794A2C004A5573 /* Assets.xcassets */; };
 		C37894212B794A2C004A5573 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C378941F2B794A2C004A5573 /* LaunchScreen.storyboard */; };
+		C37894292B797A12004A5573 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37894282B797A12004A5573 /* TabBarViewController.swift */; };
+		C378942C2B797AAB004A5573 /* TrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378942B2B797AAB004A5573 /* TrackerViewController.swift */; };
+		C378942E2B797B36004A5573 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378942D2B797B36004A5573 /* StatsViewController.swift */; };
+		C37894342B7CE160004A5573 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37894332B7CE160004A5573 /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C37894112B794A2B004A5573 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37894142B794A2B004A5573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C37894162B794A2B004A5573 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C37894182B794A2B004A5573 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C378941B2B794A2B004A5573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C378941D2B794A2C004A5573 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C37894202B794A2C004A5573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C37894222B794A2C004A5573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C37894282B797A12004A5573 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		C378942B2B797AAB004A5573 /* TrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerViewController.swift; sourceTree = "<group>"; };
+		C378942D2B797B36004A5573 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		C37894332B7CE160004A5573 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +62,66 @@
 		C37894132B794A2B004A5573 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				C37894322B7CE133004A5573 /* Models */,
+				C37894312B7CE11D004A5573 /* Views */,
+				C378942A2B797A1B004A5573 /* Controllers */,
 				C37894142B794A2B004A5573 /* AppDelegate.swift */,
 				C37894162B794A2B004A5573 /* SceneDelegate.swift */,
-				C37894182B794A2B004A5573 /* ViewController.swift */,
 				C378941A2B794A2B004A5573 /* Main.storyboard */,
-				C378941D2B794A2C004A5573 /* Assets.xcassets */,
 				C378941F2B794A2C004A5573 /* LaunchScreen.storyboard */,
+				C378941D2B794A2C004A5573 /* Assets.xcassets */,
 				C37894222B794A2C004A5573 /* Info.plist */,
 			);
 			path = Tracker;
+			sourceTree = "<group>";
+		};
+		C378942A2B797A1B004A5573 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C37894372B7CFF50004A5573 /* TabBar */,
+				C378942F2B7CDFFA004A5573 /* Tracker */,
+				C37894302B7CE01B004A5573 /* Statistic */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C378942F2B7CDFFA004A5573 /* Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				C378942B2B797AAB004A5573 /* TrackerViewController.swift */,
+			);
+			path = Tracker;
+			sourceTree = "<group>";
+		};
+		C37894302B7CE01B004A5573 /* Statistic */ = {
+			isa = PBXGroup;
+			children = (
+				C378942D2B797B36004A5573 /* StatsViewController.swift */,
+			);
+			path = Statistic;
+			sourceTree = "<group>";
+		};
+		C37894312B7CE11D004A5573 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C37894332B7CE160004A5573 /* BackgroundView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C37894322B7CE133004A5573 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C37894372B7CFF50004A5573 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				C37894282B797A12004A5573 /* TabBarViewController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +195,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C37894192B794A2B004A5573 /* ViewController.swift in Sources */,
+				C37894342B7CE160004A5573 /* BackgroundView.swift in Sources */,
+				C37894292B797A12004A5573 /* TabBarViewController.swift in Sources */,
+				C378942C2B797AAB004A5573 /* TrackerViewController.swift in Sources */,
 				C37894152B794A2B004A5573 /* AppDelegate.swift in Sources */,
+				C378942E2B797B36004A5573 /* StatsViewController.swift in Sources */,
 				C37894172B794A2B004A5573 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
