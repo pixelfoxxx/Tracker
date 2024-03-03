@@ -7,18 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C3033A7B2B82AC7E004A2D93 /* TrackerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3033A7A2B82AC7E004A2D93 /* TrackerCollectionViewCell.swift */; };
 		C37894152B794A2B004A5573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37894142B794A2B004A5573 /* AppDelegate.swift */; };
 		C37894172B794A2B004A5573 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37894162B794A2B004A5573 /* SceneDelegate.swift */; };
 		C378941C2B794A2B004A5573 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C378941A2B794A2B004A5573 /* Main.storyboard */; };
 		C378941E2B794A2C004A5573 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C378941D2B794A2C004A5573 /* Assets.xcassets */; };
 		C37894212B794A2C004A5573 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C378941F2B794A2C004A5573 /* LaunchScreen.storyboard */; };
 		C37894292B797A12004A5573 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37894282B797A12004A5573 /* TabBarViewController.swift */; };
-		C378942C2B797AAB004A5573 /* TrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378942B2B797AAB004A5573 /* TrackerViewController.swift */; };
+		C378942C2B797AAB004A5573 /* TrackersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378942B2B797AAB004A5573 /* TrackersViewController.swift */; };
 		C378942E2B797B36004A5573 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C378942D2B797B36004A5573 /* StatsViewController.swift */; };
 		C37894342B7CE160004A5573 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37894332B7CE160004A5573 /* BackgroundView.swift */; };
+		C3E2FE382B8FC9D3001FC934 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE372B8FC9D3001FC934 /* Tracker.swift */; };
+		C3E2FE3A2B8FC9E5001FC934 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE392B8FC9E5001FC934 /* TrackerCategory.swift */; };
+		C3E2FE3C2B8FC9F3001FC934 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE3B2B8FC9F3001FC934 /* TrackerRecord.swift */; };
+		C3E2FE3E2B8FDD5E001FC934 /* TrackersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE3D2B8FDD5E001FC934 /* TrackersPresenter.swift */; };
+		C3F4D3E72B924D9C0089E4E0 /* AddTrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F4D3E62B924D9C0089E4E0 /* AddTrackerViewController.swift */; };
+		C3F4D3E92B924DEF0089E4E0 /* AddTrackerScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F4D3E82B924DEF0089E4E0 /* AddTrackerScreenModel.swift */; };
+		C3F4D3EB2B924E020089E4E0 /* AddTrackerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F4D3EA2B924E020089E4E0 /* AddTrackerPresenter.swift */; };
+		C3F4D3ED2B926D7B0089E4E0 /* TrackersScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F4D3EC2B926D7B0089E4E0 /* TrackersScreenModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C3033A7A2B82AC7E004A2D93 /* TrackerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCollectionViewCell.swift; sourceTree = "<group>"; };
 		C37894112B794A2B004A5573 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37894142B794A2B004A5573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C37894162B794A2B004A5573 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,9 +37,17 @@
 		C37894202B794A2C004A5573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C37894222B794A2C004A5573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C37894282B797A12004A5573 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		C378942B2B797AAB004A5573 /* TrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerViewController.swift; sourceTree = "<group>"; };
+		C378942B2B797AAB004A5573 /* TrackersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersViewController.swift; sourceTree = "<group>"; };
 		C378942D2B797B36004A5573 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		C37894332B7CE160004A5573 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		C3E2FE372B8FC9D3001FC934 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		C3E2FE392B8FC9E5001FC934 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
+		C3E2FE3B2B8FC9F3001FC934 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
+		C3E2FE3D2B8FDD5E001FC934 /* TrackersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersPresenter.swift; sourceTree = "<group>"; };
+		C3F4D3E62B924D9C0089E4E0 /* AddTrackerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackerViewController.swift; sourceTree = "<group>"; };
+		C3F4D3E82B924DEF0089E4E0 /* AddTrackerScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackerScreenModel.swift; sourceTree = "<group>"; };
+		C3F4D3EA2B924E020089E4E0 /* AddTrackerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackerPresenter.swift; sourceTree = "<group>"; };
+		C3F4D3EC2B926D7B0089E4E0 /* TrackersScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersScreenModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C3033A792B82AC51004A2D93 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C3033A7A2B82AC7E004A2D93 /* TrackerCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		C37894082B794A2B004A5573 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +91,7 @@
 				C37894322B7CE133004A5573 /* Models */,
 				C37894312B7CE11D004A5573 /* Views */,
 				C378942A2B797A1B004A5573 /* Controllers */,
+				C3033A792B82AC51004A2D93 /* Cells */,
 				C37894142B794A2B004A5573 /* AppDelegate.swift */,
 				C37894162B794A2B004A5573 /* SceneDelegate.swift */,
 				C378941A2B794A2B004A5573 /* Main.storyboard */,
@@ -80,6 +107,7 @@
 			children = (
 				C37894372B7CFF50004A5573 /* TabBar */,
 				C378942F2B7CDFFA004A5573 /* Tracker */,
+				C3F4D3E52B924D760089E4E0 /* AddTracker */,
 				C37894302B7CE01B004A5573 /* Statistic */,
 			);
 			path = Controllers;
@@ -88,7 +116,9 @@
 		C378942F2B7CDFFA004A5573 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				C378942B2B797AAB004A5573 /* TrackerViewController.swift */,
+				C3F4D3EC2B926D7B0089E4E0 /* TrackersScreenModel.swift */,
+				C378942B2B797AAB004A5573 /* TrackersViewController.swift */,
+				C3E2FE3D2B8FDD5E001FC934 /* TrackersPresenter.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -112,6 +142,9 @@
 		C37894322B7CE133004A5573 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C3E2FE372B8FC9D3001FC934 /* Tracker.swift */,
+				C3E2FE392B8FC9E5001FC934 /* TrackerCategory.swift */,
+				C3E2FE3B2B8FC9F3001FC934 /* TrackerRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -122,6 +155,16 @@
 				C37894282B797A12004A5573 /* TabBarViewController.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		C3F4D3E52B924D760089E4E0 /* AddTracker */ = {
+			isa = PBXGroup;
+			children = (
+				C3F4D3E82B924DEF0089E4E0 /* AddTrackerScreenModel.swift */,
+				C3F4D3E62B924D9C0089E4E0 /* AddTrackerViewController.swift */,
+				C3F4D3EA2B924E020089E4E0 /* AddTrackerPresenter.swift */,
+			);
+			path = AddTracker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,11 +238,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3F4D3ED2B926D7B0089E4E0 /* TrackersScreenModel.swift in Sources */,
+				C3E2FE3A2B8FC9E5001FC934 /* TrackerCategory.swift in Sources */,
+				C3F4D3EB2B924E020089E4E0 /* AddTrackerPresenter.swift in Sources */,
 				C37894342B7CE160004A5573 /* BackgroundView.swift in Sources */,
 				C37894292B797A12004A5573 /* TabBarViewController.swift in Sources */,
-				C378942C2B797AAB004A5573 /* TrackerViewController.swift in Sources */,
+				C378942C2B797AAB004A5573 /* TrackersViewController.swift in Sources */,
 				C37894152B794A2B004A5573 /* AppDelegate.swift in Sources */,
+				C3F4D3E92B924DEF0089E4E0 /* AddTrackerScreenModel.swift in Sources */,
+				C3E2FE3C2B8FC9F3001FC934 /* TrackerRecord.swift in Sources */,
+				C3E2FE382B8FC9D3001FC934 /* Tracker.swift in Sources */,
 				C378942E2B797B36004A5573 /* StatsViewController.swift in Sources */,
+				C3033A7B2B82AC7E004A2D93 /* TrackerCollectionViewCell.swift in Sources */,
+				C3F4D3E72B924D9C0089E4E0 /* AddTrackerViewController.swift in Sources */,
+				C3E2FE3E2B8FDD5E001FC934 /* TrackersPresenter.swift in Sources */,
 				C37894172B794A2B004A5573 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

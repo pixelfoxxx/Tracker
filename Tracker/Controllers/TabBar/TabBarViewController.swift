@@ -21,7 +21,7 @@ extension TabBarViewController {
         tabBar.backgroundColor = .ypWhite
         
         // MARK: - TabBar ViewControllers
-        let trackerVC = TrackerViewController()
+        let trackerVC = TrackersViewController()
         trackerVC.tabBarItem = UITabBarItem(
             title: "Трекеры",
             image: UIImage(named: "trackers.tab"),
