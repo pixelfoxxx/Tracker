@@ -32,4 +32,3 @@ extension TabBarViewController {
         viewControllers = [trackerNavController, statsNavController]
     }
 }
-
