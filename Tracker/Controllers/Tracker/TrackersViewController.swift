@@ -202,7 +202,7 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func filtersButtonTapped() {
-        
+       // TODO: - Complete logic
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
