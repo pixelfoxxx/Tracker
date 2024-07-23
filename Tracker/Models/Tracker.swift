@@ -7,45 +7,31 @@
 
 import UIKit
 
-import UIKit
-
 struct Tracker {
+    
     let id: UUID
     let title: String
     let color: UIColor
     let emoji: String
     let schedule: Schedule
+    let category: TrackerCategory?
 }
 
-struct Schedule {
-    var weekdays: Set<Weekday>
-    var date: Date?
-    
-    mutating func addWeekday(_ weekday: Weekday) {
-        weekdays.insert(weekday)
-    }
-
-    mutating func removeWeekday(_ weekday: Weekday) {
-        weekdays.remove(weekday)
-    }
-    
-    func contains(_ weekday: Weekday) -> Bool {
-        return weekdays.contains(weekday)
-    }
-}
-
-enum Weekday: Int {
-    case sunday = 1, monday, tuesday, wednesday, thursday, friday, saturday
-    
-    var shortName: String {
-        switch self {
-        case .monday: return "Пн"
-        case .tuesday: return "Вт"
-        case .wednesday: return "Ср"
-        case .thursday: return "Чт"
-        case .friday: return "Пт"
-        case .saturday: return "Сб"
-        case .sunday: return "Вс"
-        }
+extension Tracker {
+    init?(from trackerEntity: TrackerCoreData) {
+        let id = trackerEntity.id
+        let title = trackerEntity.title
+        let emoji = trackerEntity.emoji
+        
+        guard let color = trackerEntity.color,
+              let schedule = trackerEntity.schedule,
+              let category = trackerEntity.category
+        else { return nil }
+        self.id = id
+        self.title = title
+        self.color = color
+        self.emoji = emoji
+        self.schedule = schedule
+        self.category = .init(from: category)
     }
 }

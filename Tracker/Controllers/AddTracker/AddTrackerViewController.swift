@@ -89,11 +89,11 @@ final class AddTrackerViewController: UIViewController {
     }
     
     @objc private func addHabit() {
-        presenter.addHabit()
+        presenter.createTracker(state: .createHabit)
     }
     
     @objc private func addEvent() {
-        presenter.addEvent()
+        presenter.createTracker(state: .createEvent)
     }
 }
 

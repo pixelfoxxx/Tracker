@@ -9,7 +9,6 @@ import UIKit
 
 protocol CreateActivityViewProtocol: AnyObject {
     func displayData(screenModel: CreateActivityScreenModel, reloadTableData: Bool)
-    func showController(vc: UIViewController)
     func updateSaveButton(isEnabled: Bool)
 }
 
@@ -141,7 +140,9 @@ final class CreateActivityViewController: UIViewController {
     }
     
     @objc private func createButtonTapped() {
-        presenter.createActivity(for: presenter.selectedDate)
+        DispatchQueue.global().sync {
+            presenter.createActivity(for: presenter.selectedDate)
+        }
         navigationController?.dismiss(animated: true)
     }
 }
@@ -156,10 +157,6 @@ extension CreateActivityViewController: CreateActivityViewProtocol {
         if reloadTableData {
             tableView.reloadData()
         }
-    }
-    
-    func showController(vc: UIViewController) {
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     func updateSaveButton(isEnabled: Bool) {

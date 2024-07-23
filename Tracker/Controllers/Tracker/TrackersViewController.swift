@@ -12,7 +12,6 @@ protocol TrackersViewProtocol: AnyObject {
     var isSearching: Bool { get }
     var currentDate: Date { get }
     func displayData(model: TrackersScreenModel, reloadData: Bool)
-    func showCreateController(viewController: UIViewController)
     func showCompleteTrackerErrorAlert()
 }
 
@@ -39,6 +38,7 @@ final class TrackersViewController: UIViewController {
     }
     
     var presenter: TrackersPresenterProtocol!
+    var router: TrackersRouterProtocol!
     
     private var model: TrackersScreenModel = .empty {
         didSet {
@@ -61,7 +61,8 @@ final class TrackersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = TrackersPresenter(view: self)
+        router = TrackersRouter(view: self)
+        presenter = TrackersPresenter(view: self, router: router)
         presenter.setup()
         configureView()
         addTapGesture()
@@ -202,7 +203,7 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func filtersButtonTapped() {
-       // TODO: - Complete logic
+        // TODO: - Complete logic
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -249,7 +250,6 @@ extension TrackersViewController: TrackersViewProtocol {
 }
 
 //MARK: - UICollectionViewDelegate
-
 extension TrackersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellType = collectionDataCell(indexPath: indexPath)
