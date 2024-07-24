@@ -32,14 +32,14 @@ final class TrackerRecordStore {
         let fetchRequest: NSFetchRequest<TrackerRecordCoreData> = TrackerRecordCoreData.fetchRequest()
         
         do {
-            let trackerRecordsEntitties = try context.fetch(fetchRequest)
-            let trackerRecords = trackerRecordsEntitties.compactMap { recordEntity ->
+            let trackerRecordsEntities = try context.fetch(fetchRequest)
+            let trackerRecords = trackerRecordsEntities.compactMap { recordEntity ->
                 TrackerRecord? in
                 return TrackerRecord(from: recordEntity)
             }
             return trackerRecords
         } catch let error as NSError {
-            print("❌❌❌ Не удалось получить записи высолнкееых трекеров: \(error), \(error.userInfo)")
+            print("❌❌❌ Не удалось получить записи выполненных трекеров: \(error), \(error.userInfo)")
             return []
         }
     }

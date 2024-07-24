@@ -22,7 +22,7 @@ final class CoreDataStack: CoreDataStackProtocol {
     }
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "TrackersDBModel")
+        let container = NSPersistentContainer(name: "TrackersDataBase")
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Не удалось загрузить хранилища: \(error), \(error.userInfo)")
