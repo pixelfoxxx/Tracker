@@ -3,7 +3,7 @@
 //  Tracker
 //
 //  Created by Юрий Клеймёнов on 21.02.2024.
-//  
+//
 //
 
 import UIKit
@@ -24,6 +24,7 @@ final class LabeledCell: UITableViewCell {
     
     var viewModel: LabeledCellViewModel? {
         didSet {
+            setup()
             titleLabel.text = viewModel?.title
             titleLabel.textAlignment = viewModel?.style == .button ? .center : .left
         }
@@ -34,7 +35,6 @@ final class LabeledCell: UITableViewCell {
         reuseIdentifier: String?
     ) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -45,6 +45,7 @@ final class LabeledCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.backgroundColor = viewModel?.style == .button ? .buttons : .cellBackground
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             viewModel?.style == .button
