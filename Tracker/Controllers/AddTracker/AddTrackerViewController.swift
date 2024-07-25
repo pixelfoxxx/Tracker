@@ -9,7 +9,6 @@ import UIKit
 
 protocol AddTrackerViewProtocol: AnyObject {
     func displayData(model: AddTrackerScreenModel)
-    func showCreateActivityController(viewController: UIViewController)
 }
 
 final class AddTrackerViewController: UIViewController {
@@ -100,10 +99,6 @@ final class AddTrackerViewController: UIViewController {
 extension AddTrackerViewController: AddTrackerViewProtocol {
     func displayData(model: AddTrackerScreenModel) {
         self.model = model
-    }
-    
-    func showCreateActivityController(viewController: UIViewController) {
-        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

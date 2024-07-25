@@ -29,7 +29,7 @@ public class Schedule: NSObject, NSSecureCoding {
                 .compactMap { Weekday(rawValue: $0) }
             self.weekdays = Set(weekdaysArr)
         }
-        self.date = coder.decodeObject(forKey: "date") as? Date
+        self.date = coder.decodeObject(of: NSDate.self, forKey: "date") as Date?
     }
 
     public func encode(with coder: NSCoder) {

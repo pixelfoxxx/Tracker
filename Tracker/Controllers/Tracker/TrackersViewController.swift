@@ -109,7 +109,7 @@ final class TrackersViewController: UIViewController {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor, constant: 402),
             backgroundView.widthAnchor.constraint(equalToConstant: 200),
             backgroundView.heightAnchor.constraint(equalToConstant: 200)
         ])
@@ -135,6 +135,9 @@ final class TrackersViewController: UIViewController {
     private func setupCollectionViewConstraints() {
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsVerticalScrollIndicator = false
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .insets),
@@ -142,8 +145,6 @@ final class TrackersViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: .bottomInsets, right: 0)
-        collectionView.showsVerticalScrollIndicator = false
-        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     private func setupFiltersButtonConstraints() {

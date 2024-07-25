@@ -133,12 +133,13 @@ final class TrackersPresenter {
         guard let view = view else { return .empty }
         if trackers.isEmpty {
             return .trackersDoNotExist
-        } else if ((view.isSearching || view.isFiltering) && filteredTrackersByCategory.isEmpty){
+        } else if view.isSearching && filteredTrackersByCategory.isEmpty {
             return .emptySearchResult
         } else {
-            return .empty
+            return .trackersDoNotExist
         }
     }
+    
     private func render(reloadData: Bool = true) {
         view?.displayData(model: buildScreenModel(), reloadData: reloadData)
     }

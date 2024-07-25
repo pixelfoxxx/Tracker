@@ -32,7 +32,7 @@ final class BackgroundView: UIView {
     
     private let textLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "YS-Display-Medium", size: 12)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -54,22 +54,28 @@ final class BackgroundView: UIView {
     }
     
     private func configure() {
-        addSubview(stackView)
-        stackView.addArrangedSubview(imageView)
-        stackView.addArrangedSubview(textLabel)
-        setupStackView()
-        setupUI()
-    }
-    
-    private func setupStackView() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-    }
+            addSubview(imageView)
+            addSubview(textLabel)
+            setupConstraints()
+            setupUI()
+        }
+        
+        private func setupConstraints() {
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            textLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                imageView.widthAnchor.constraint(equalToConstant: 80.0),
+                imageView.heightAnchor.constraint(equalToConstant: 80.0),
+                imageView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+                
+                textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+                textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+                textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            ])
+        }
     
     private func setupUI() {
         switch state {
@@ -94,6 +100,7 @@ final class BackgroundView: UIView {
     private func configureCategoriesDoNonExistState() {
         imageView.image = Assets.Images.Background.emptyTrackers
         textLabel.text = "Привычки и события можно объединить по смыслу"
+        textLabel.numberOfLines = 2
     }
     
     private func configureEmptyStatisticState() {

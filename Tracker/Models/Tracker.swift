@@ -35,3 +35,5 @@ extension Tracker {
         self.category = .init(from: category)
     }
 }
+
+extension Tracker: Hashable {}
