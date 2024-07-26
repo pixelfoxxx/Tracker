@@ -8,12 +8,21 @@
 import UIKit
 
 final class BackgroundView: UIView {
+    
     enum BackgroundState {
         case emptyStatistic
         case emptySearchResult
         case trackersDoNotExist
+        case emptyCategories
         case empty
     }
+    
+    private let stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        return stack
+    }()
     
     private let imageView:  UIImageView = {
         let imageView = UIImageView()
@@ -23,7 +32,8 @@ final class BackgroundView: UIView {
     
     private let textLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "YS-Display-Medium", size: 12)
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.numberOfLines = 0
         label.textAlignment = .center
         return label
     }()
@@ -44,34 +54,28 @@ final class BackgroundView: UIView {
     }
     
     private func configure() {
-        addSubview(imageView)
-        addSubview(textLabel)
+            addSubview(imageView)
+            addSubview(textLabel)
+            setupConstraints()
+            setupUI()
+        }
         
-        setupImageViewConstraints()
-        setupTextLabelConstraints()
-        setupUI()
-    }
-    
-    private func setupImageViewConstraints() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: .imageViewWidth),
-            imageView.heightAnchor.constraint(equalToConstant: .imageViewHeight)
-        ])
-    }
-    
-    private func setupTextLabelConstraints() {
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: .insets),
-            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            textLabel.heightAnchor.constraint(equalToConstant: .textLabelHeight)
-        ])
-    }
+        private func setupConstraints() {
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            textLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                imageView.widthAnchor.constraint(equalToConstant: 80.0),
+                imageView.heightAnchor.constraint(equalToConstant: 80.0),
+                imageView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+                
+                textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+                textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+                textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            ])
+        }
     
     private func setupUI() {
         switch state {
@@ -83,12 +87,20 @@ final class BackgroundView: UIView {
             configureTrackersDoNotExistState()
         case .empty:
             configureEmptyState()
+        case .emptyCategories:
+            configureCategoriesDoNonExistState()
         }
     }
     
     private func configureTrackersDoNotExistState() {
         imageView.image = Assets.Images.Background.emptyTrackers
         textLabel.text = "Что будем отслеживать?"
+    }
+    
+    private func configureCategoriesDoNonExistState() {
+        imageView.image = Assets.Images.Background.emptyTrackers
+        textLabel.text = "Привычки и события можно объединить по смыслу"
+        textLabel.numberOfLines = 2
     }
     
     private func configureEmptyStatisticState() {

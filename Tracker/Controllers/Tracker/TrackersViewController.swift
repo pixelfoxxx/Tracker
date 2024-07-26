@@ -12,7 +12,6 @@ protocol TrackersViewProtocol: AnyObject {
     var isSearching: Bool { get }
     var currentDate: Date { get }
     func displayData(model: TrackersScreenModel, reloadData: Bool)
-    func showCreateController(viewController: UIViewController)
     func showCompleteTrackerErrorAlert()
 }
 
@@ -39,6 +38,7 @@ final class TrackersViewController: UIViewController {
     }
     
     var presenter: TrackersPresenterProtocol!
+    var router: TrackersRouterProtocol!
     
     private var model: TrackersScreenModel = .empty {
         didSet {
@@ -61,7 +61,8 @@ final class TrackersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = TrackersPresenter(view: self)
+        router = TrackersRouter(view: self)
+        presenter = TrackersPresenter(view: self, router: router)
         presenter.setup()
         configureView()
         addTapGesture()
@@ -108,7 +109,7 @@ final class TrackersViewController: UIViewController {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor, constant: 402),
             backgroundView.widthAnchor.constraint(equalToConstant: 200),
             backgroundView.heightAnchor.constraint(equalToConstant: 200)
         ])
@@ -134,6 +135,9 @@ final class TrackersViewController: UIViewController {
     private func setupCollectionViewConstraints() {
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsVerticalScrollIndicator = false
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .insets),
@@ -141,8 +145,6 @@ final class TrackersViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: .bottomInsets, right: 0)
-        collectionView.showsVerticalScrollIndicator = false
-        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     private func setupFiltersButtonConstraints() {
@@ -202,7 +204,7 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func filtersButtonTapped() {
-        
+        // TODO: - Complete logic
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -249,7 +251,6 @@ extension TrackersViewController: TrackersViewProtocol {
 }
 
 //MARK: - UICollectionViewDelegate
-
 extension TrackersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellType = collectionDataCell(indexPath: indexPath)

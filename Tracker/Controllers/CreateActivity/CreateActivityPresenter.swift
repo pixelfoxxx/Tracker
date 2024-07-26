@@ -23,8 +23,6 @@ final class CreateActivityPresenter {
     
     typealias TableData = CreateActivityScreenModel.TableData
     
-    weak var view: CreateActivityViewProtocol?
-    
     var selectedDate: Date
     
     var onSave: (Tracker) -> Void
@@ -33,10 +31,21 @@ final class CreateActivityPresenter {
         !enteredActivityName.isEmpty
         && !enteredEmoji.isEmpty
         && enteredColor != nil
-        && state == .createEvent || !enteredSchedule.weekdays.isEmpty
+        && enteredCategory != nil
+        && (state == .createEvent || !enteredSchedule.weekdays.isEmpty)
+        
     }
     
+    private var trackersStore = TrackerStore()
+    private var router: CreateActivityRouterProtocol
     private var state: CreateActivityState?
+    private weak var view: CreateActivityViewProtocol?
+    private var categories: [TrackerCategory] {
+        get {
+            let categoriesStore = TrackerCategoryStore()
+            return categoriesStore.fetchCategories()
+        }
+    }
     
     private var enteredActivityName: String = "" {
         didSet { updateSaveButtonState() }
@@ -51,20 +60,26 @@ final class CreateActivityPresenter {
         didSet { updateSaveButtonState() }
     }
     
+    private var enteredCategory: TrackerCategory? = nil {
+        didSet { updateSaveButtonState() }
+    }
+
     //MARK: - init
     
     init(
         view: CreateActivityViewProtocol,
         selectedDate: Date,
         state: CreateActivityState,
+        router: CreateActivityRouterProtocol,
         onSave: @escaping (Tracker) -> Void
     ) {
         self.view = view
         self.state = state
         self.onSave = onSave
+        self.router = router
         self.selectedDate = selectedDate
     }
-    
+
     private func buildScreenModel() -> CreateActivityScreenModel {
         let title: String = {
             switch self.state {
@@ -76,7 +91,7 @@ final class CreateActivityPresenter {
                 ""
             }
         }()
-        
+
         let sections: [TableData.Section] = [
             createActivityNameSection(),
             createActivitySettingsSection(),
@@ -131,16 +146,20 @@ final class CreateActivityPresenter {
     private func createActivitySettingsSection() -> TableData.Section {
         let categoryCell: TableData.Cell = .detailCell(.init(
             title: "Категория",
-            subtitle: "", //MARK: - TODO
-            action: {}))
+            subtitle: enteredCategory?.title ?? "",
+            action: { [ weak self ] in
+                guard let self else { return }
+                self.showCategories(state: categories.isEmpty ? .empty : .categoriesList)
+            
+        }))
         
         let scheduleCell: TableData.Cell = .detailCell(SubtitledDetailTableViewCellViewModel(
             title: "Расписание",
             subtitle: createScheduleDetailInfo(),
-            action: { [ weak self ] in
-                guard let self else { return }
-                self.showSchedule()
-            }))
+        action: { [ weak self ] in
+            guard let self else { return }
+            self.showSchedule()
+        }))
         
         var activitySettingsCells: [TableData.Cell] = []
         
@@ -157,11 +176,17 @@ final class CreateActivityPresenter {
     }
     
     private func showSchedule() {
-        let vc = Assembler.buildScheduleModule(selectedDays: enteredSchedule.weekdays) { [ weak self ] scedule in
+        router.showSchedule(selectedDays: enteredSchedule.weekdays) { [ weak self ] schedule in
             guard let self else { return }
-            self.enteredSchedule = scedule
+            self.enteredSchedule = schedule
         }
-        view?.showController(vc: vc)
+    }
+    
+    private func showCategories(state: CategoryScreenState) {
+        router.showCategories(state: state, categories: categories) { [ weak self ] category in
+            guard let self else { return }
+            self.enteredCategory = category
+        }
     }
     
     private func createScheduleDetailInfo() -> String {
@@ -188,7 +213,7 @@ final class CreateActivityPresenter {
 extension CreateActivityPresenter: CreateActivityPresenterProtocol {
     
     func setup() {
-        render()
+       render()
     }
     
     func createActivity(for date: Date) {
@@ -198,15 +223,22 @@ extension CreateActivityPresenter: CreateActivityPresenterProtocol {
         } else {
             schedule = .init(weekdays: enteredSchedule.weekdays)
         }
-        
+
         let tracker = Tracker(
             id: UUID(),
             title: enteredActivityName,
             color: enteredColor ?? .clear,
             emoji: enteredEmoji,
-            schedule: schedule
+            schedule: schedule,
+            category: enteredCategory
         )
         
-        onSave(tracker)
+        do {
+            try trackersStore.createTracker(with: tracker)
+        } catch {
+            print("❌❌❌ Не удалось преобразовать Tracker в TrackerCoreData")
+        }
+        
+       onSave(tracker)
     }
 }

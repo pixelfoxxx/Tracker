@@ -15,43 +15,60 @@ protocol TrackersPresenterProtocol: AnyObject {
     func filterTrackers(for date: Date)
 }
 
-extension TrackersPresenter {
-    func createMockCategory() -> TrackerCategory {
-        let mockTracker = Tracker(id: UUID(), title: "Test Tracker", color: .red, emoji: "🚀", schedule: Schedule(weekdays: [.monday], date: nil))
-        return TrackerCategory(title: "Mock Category", trackers: [mockTracker])
-    }
-}
-
 final class TrackersPresenter {
     
-    weak var view: TrackersViewProtocol?
+    var trackers: [Tracker] {
+        get {
+            let trackerStore = TrackerStore()
+            return trackerStore.fetchTrackers()
+        }
+
+        set(newTrackers) {
+            for tracker in newTrackers {
+                guard let category = tracker.category else { continue }
+                trackersByCategory[category, default: []].append(tracker)
+            }
+        }
+    }
     
-    var categories: [TrackerCategory] = []
+    var trackersByCategory = [TrackerCategory: [Tracker]]()
     
     var shouldShowBackgroundView: Bool {
         guard let view = view else { return false }
-        return ((view.isSearching || view.isFiltering) && filteredCategories.isEmpty) || categories.isEmpty
+        return ((view.isSearching || view.isFiltering) && filteredTrackersByCategory.isEmpty) || trackers.isEmpty
     }
     
-    private var completedTrackers: Set<TrackerRecord> = []
-    private var filteredCategories = [TrackerCategory]()
+    private var completedTrackers: Set<TrackerRecord> {
+        get {
+            let trackerRecordsStore = TrackerRecordStore()
+            var trackersRecords = trackerRecordsStore.fetchTrackerRecords()
+            return Set(trackersRecords)
+        }
+        
+        set {}
+    }
     
-    init(view: TrackersViewProtocol) {
+    private weak var view: TrackersViewProtocol?
+    private let router: TrackersRouterProtocol
+    private var filteredTrackersByCategory = [TrackerCategory: [Tracker]]()
+    
+    init(
+        view: TrackersViewProtocol,
+        router: TrackersRouterProtocol
+    ) {
         self.view = view
+        self.router = router
     }
     
     private func buildScreenModel() -> TrackersScreenModel {
-        var categories = [TrackerCategory]()
-        if let view,
-           view.isFiltering  || view.isSearching {
-            categories = filteredCategories
-        } else {
-            categories = self.categories
-        }
-        
-        let sections: [TrackersScreenModel.CollectionData.Section] = categories.map { category in
-            let cells: [TrackersScreenModel.CollectionData.Cell] = category.trackers.compactMap { tracker in
-                guard let view = self.view else { return nil }
+        let categoriesWithTrackers = (view?.isFiltering == true || view?.isSearching == true) ? filteredTrackersByCategory : trackersByCategory
+        let categories = Array(categoriesWithTrackers.keys)
+        let sections: [TrackersScreenModel.CollectionData.Section] = categories.compactMap { category in
+            let cells = categoriesWithTrackers.values
+                .flatMap { $0 }
+                .filter { $0.category == category }
+                .compactMap { tracker -> TrackersScreenModel.CollectionData.Cell? in
+                guard let view else { return nil }
                 let trackerRecord = TrackerRecord(id: tracker.id, date: view.currentDate)
                 let isCompleted = self.completedTrackers.contains(trackerRecord)
                 let daysCount = completedTrackers.filter({$0.id == tracker.id}).count
@@ -68,8 +85,10 @@ final class TrackersPresenter {
                             return
                         } else {
                             if completedTrackers.contains(trackerRecord) {
+                                deleteTrackerRecord(withId: trackerRecord.id)
                                 completedTrackers.remove(trackerRecord)
                             } else {
+                                addTrackerRecord(trackerRecord: trackerRecord)
                                 completedTrackers.insert(trackerRecord)
                             }
                         }
@@ -92,16 +111,35 @@ final class TrackersPresenter {
         )
     }
     
-    private func backgroundState() -> BackgroundView.BackgroundState {
-        guard let view = view else { return .empty }
-        if categories.isEmpty {
-            return .trackersDoNotExist
-        } else if ((view.isSearching || view.isFiltering) && filteredCategories.isEmpty){
-            return .emptySearchResult
-        } else {
-            return .empty
+    private func addTrackerRecord(trackerRecord: TrackerRecord) {
+        do {
+            try TrackerRecordStore().createTrackerRecord(with: trackerRecord)
+            print("✅ TrackerRecord успешно добавлен")
+            render(reloadData: true)
+        } catch {
+            print("❌ Не удалось создать TrackerRecord: \(error)")
         }
     }
+    
+    private func deleteTrackerRecord(withId id: UUID) {
+        do {
+            try TrackerRecordStore().deleteTrackerRecord(withId: id)
+        } catch {
+            print("Ошибка при удалении записи трекера: \(error)")
+        }
+    }
+    
+    private func backgroundState() -> BackgroundView.BackgroundState {
+        guard let view = view else { return .empty }
+        if trackers.isEmpty {
+            return .trackersDoNotExist
+        } else if view.isSearching && filteredTrackersByCategory.isEmpty {
+            return .emptySearchResult
+        } else {
+            return .trackersDoNotExist
+        }
+    }
+    
     private func render(reloadData: Bool = true) {
         view?.displayData(model: buildScreenModel(), reloadData: reloadData)
     }
@@ -109,26 +147,35 @@ final class TrackersPresenter {
 
 extension TrackersPresenter: TrackersPresenterProtocol {
     func setup() {
+        
+        let trackers = TrackerStore().fetchTrackers()
+        trackers.forEach { tracker in
+            if let category = tracker.category {
+                self.trackersByCategory[category, default: []].append(tracker)
+            }
+        }
         render()
     }
     
     func addTracker() {
-        guard let view else { return }
-        let createTrackerController = Assembler.buildCreateTrackerModule(selectedDate: view.currentDate) { [ weak self ] tracker in
-            guard let self else { return }
-            categories.append(.init(title: "777", trackers: [tracker]))
-            render(reloadData: true)
+        guard let view = view else { return }
+        router.showCreateTrackerController(selectedDate: view.currentDate) { [weak self] tracker in
+            guard let self = self, let category = tracker.category else { return }
+            self.trackersByCategory[category, default: []].append(tracker)
+            self.render(reloadData: true)
         }
-        view.showCreateController(viewController: createTrackerController)
     }
     
     func showSearchResults(with inputText: String) {
-        self.filteredCategories = categories.map { category in
-            let filteredTrackers = category.trackers.filter { $0.title.localizedCaseInsensitiveContains(inputText) }
-            return  TrackerCategory(title: category.title, trackers: filteredTrackers)
-        }
-        filteredCategories.removeAll { $0.trackers.isEmpty }
-
+        self.filteredTrackersByCategory.removeAll()
+        trackersByCategory.values
+            .flatMap { $0 }
+            .filter { $0.title.contains(inputText) }
+            .forEach {
+                if let category = $0.category {
+                    self.filteredTrackersByCategory[category, default: []].append($0)
+                }
+            }
         render(reloadData: true)
     }
     
@@ -137,9 +184,15 @@ extension TrackersPresenter: TrackersPresenterProtocol {
         
         guard let selectedWeekday = Weekday(rawValue: weekday) else { return }
         
-        filteredCategories = categories.compactMap {
-            let filteredTrackers = $0.trackers.filter { $0.schedule.contains(selectedWeekday) || $0.schedule.date == date}
-            return filteredTrackers.isEmpty ? nil : TrackerCategory(title: $0.title, trackers: filteredTrackers)
+        filteredTrackersByCategory.removeAll()
+    
+        trackersByCategory.forEach { category, trackers in
+            let filteredTrackers = trackers.filter {
+                $0.schedule.contains(selectedWeekday) || $0.schedule.date == date
+            }
+            if !filteredTrackers.isEmpty {
+                filteredTrackersByCategory[category] = filteredTrackers
+            }
         }
         
         render(reloadData: true)

@@ -23,7 +23,7 @@ struct ScheduleScreenModel {
         
         enum Cell {
             case switchCell(SwitchCellViewModel)
-            case labledCell(LabledCellViewModel)
+            case labledCell(LabeledCellViewModel)
         }
         
         var sections: [Section]

@@ -8,20 +8,27 @@
 import Foundation
 
 protocol AddTrackerPresenterProtocol: AnyObject {
-    func addEvent()
-    func addHabit()
+    func createTracker(state: CreateActivityState)
     func setup()
 }
 
 final class AddTrackerPresenter {
-    
-    weak var view: AddTrackerViewProtocol?
+
     var onSave: (Tracker) -> Void
     var selectedDate: Date
     
-    init(view: AddTrackerViewProtocol?, selectedDate: Date, onSave: @escaping (Tracker) -> Void) {
+    private weak var view: AddTrackerViewProtocol?
+    private var router: AddTrackerRouterProtocol
+    
+    init(
+        view: AddTrackerViewProtocol?,
+        selectedDate: Date,
+        router: AddTrackerRouterProtocol,
+        onSave: @escaping (Tracker) -> Void
+    ) {
         self.view = view
         self.onSave = onSave
+        self.router = router
         self.selectedDate = selectedDate
     }
     
@@ -39,16 +46,9 @@ final class AddTrackerPresenter {
     }
 }
 
-extension AddTrackerPresenter:  AddTrackerPresenterProtocol {
-    
-    func addEvent() {
-        let createEventController = Assembler.buildCreateActivityModule(state: .createEvent, selectedDate: selectedDate, onSave: onSave)
-        view?.showCreateActivityController(viewController: createEventController)
-    }
-    
-    func addHabit() {
-        let createHabitController = Assembler.buildCreateActivityModule(state: .createHabit, selectedDate: selectedDate, onSave: onSave)
-        view?.showCreateActivityController(viewController: createHabitController)
+extension AddTrackerPresenter: AddTrackerPresenterProtocol {
+    func createTracker(state: CreateActivityState) {
+        router.showCreateActivityController(state: state, selectedDate: selectedDate, onSave: onSave)
     }
     
     func setup() {
