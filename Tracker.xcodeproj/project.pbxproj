@@ -55,6 +55,8 @@
 		C3D05A1F2C50297F00C592E0 /* CreateCategoryScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A1E2C50297F00C592E0 /* CreateCategoryScreenModel.swift */; };
 		C3D05A212C502E1E00C592E0 /* AddTrackerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A202C502E1E00C592E0 /* AddTrackerRouter.swift */; };
 		C3D05A292C515DB600C592E0 /* TrackersDataBase.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A282C515DB600C592E0 /* TrackersDataBase.xcdatamodel */; };
+		C3D05A2F2C580C4E00C592E0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A2E2C580C4E00C592E0 /* OnboardingViewController.swift */; };
+		C3D05A312C580D8E00C592E0 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A302C580D8E00C592E0 /* OnboardingPageViewController.swift */; };
 		C3E2FE382B8FC9D3001FC934 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE372B8FC9D3001FC934 /* Tracker.swift */; };
 		C3E2FE3A2B8FC9E5001FC934 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE392B8FC9E5001FC934 /* TrackerCategory.swift */; };
 		C3E2FE3C2B8FC9F3001FC934 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE3B2B8FC9F3001FC934 /* TrackerRecord.swift */; };
@@ -115,6 +117,8 @@
 		C3D05A1E2C50297F00C592E0 /* CreateCategoryScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryScreenModel.swift; sourceTree = "<group>"; };
 		C3D05A202C502E1E00C592E0 /* AddTrackerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackerRouter.swift; sourceTree = "<group>"; };
 		C3D05A282C515DB600C592E0 /* TrackersDataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TrackersDataBase.xcdatamodel; sourceTree = "<group>"; };
+		C3D05A2E2C580C4E00C592E0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		C3D05A302C580D8E00C592E0 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
 		C3E2FE372B8FC9D3001FC934 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		C3E2FE392B8FC9E5001FC934 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		C3E2FE3B2B8FC9F3001FC934 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 		C378942A2B797A1B004A5573 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C3D05A2A2C580BE400C592E0 /* Onboarding */,
 				C3D05A0F2C50284C00C592E0 /* Category */,
 				C33F1CA62C44665500D4F8FA /* Schedule */,
 				C37894372B7CFF50004A5573 /* TabBar */,
@@ -353,6 +358,15 @@
 				C3D05A1E2C50297F00C592E0 /* CreateCategoryScreenModel.swift */,
 			);
 			path = CreateCategory;
+			sourceTree = "<group>";
+		};
+		C3D05A2A2C580BE400C592E0 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				C3D05A2E2C580C4E00C592E0 /* OnboardingViewController.swift */,
+				C3D05A302C580D8E00C592E0 /* OnboardingPageViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		C3F4D3E52B924D760089E4E0 /* AddTracker */ = {
@@ -482,12 +496,14 @@
 				C33F1C9F2C4465ED00D4F8FA /* LabeledCell.swift in Sources */,
 				C3033A7B2B82AC7E004A2D93 /* TrackerCollectionViewCell.swift in Sources */,
 				C3F4D3E72B924D9C0089E4E0 /* AddTrackerViewController.swift in Sources */,
+				C3D05A2F2C580C4E00C592E0 /* OnboardingViewController.swift in Sources */,
 				C3D05A022C50231000C592E0 /* TrackerRecordStore.swift in Sources */,
 				C33F1CA32C4465ED00D4F8FA /* EmojiCell.swift in Sources */,
 				C3D05A0E2C50282E00C592E0 /* CreateActivityRouter.swift in Sources */,
 				C3E2FE3E2B8FDD5E001FC934 /* TrackersPresenter.swift in Sources */,
 				C37894172B794A2B004A5573 /* SceneDelegate.swift in Sources */,
 				C3D05A052C50236700C592E0 /* TrackerCoreData.swift in Sources */,
+				C3D05A312C580D8E00C592E0 /* OnboardingPageViewController.swift in Sources */,
 				C31D30732BE2EE1E00D26796 /* Assembler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
