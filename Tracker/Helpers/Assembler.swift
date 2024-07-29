@@ -50,8 +50,8 @@ final class Assembler: AssemblerProtocol {
     static func buildCategoriesModule(state: CategoryScreenState, categories: [TrackerCategory], categoryIsChosen: @escaping (TrackerCategory) -> Void) -> UIViewController {
         let view = CategoryViewController()
         let router = CategoryRouter(view: view)
-        let presenter = CategoryPresenter(view: view, state: state, categories: categories, router: router, categoryIsChosen: categoryIsChosen)
-        view.presenter = presenter
+        let viewModel = CategoryViewModel(state: state, categories: categories, router: router, categoryIsChosen: categoryIsChosen)
+        view.viewModel = viewModel
         return view
     }
 }

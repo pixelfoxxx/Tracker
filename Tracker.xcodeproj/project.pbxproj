@@ -47,7 +47,6 @@
 		C3D05A0C2C50268900C592E0 /* TrackersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A0B2C50268900C592E0 /* TrackersRouter.swift */; };
 		C3D05A0E2C50282E00C592E0 /* CreateActivityRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A0D2C50282E00C592E0 /* CreateActivityRouter.swift */; };
 		C3D05A132C5028AC00C592E0 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A122C5028AC00C592E0 /* CategoryViewController.swift */; };
-		C3D05A152C5028D200C592E0 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A142C5028D200C592E0 /* CategoryPresenter.swift */; };
 		C3D05A172C5028F000C592E0 /* CategoryScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A162C5028F000C592E0 /* CategoryScreenModel.swift */; };
 		C3D05A192C5028FF00C592E0 /* CategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A182C5028FF00C592E0 /* CategoryRouter.swift */; };
 		C3D05A1B2C50296300C592E0 /* CreateCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A1A2C50296300C592E0 /* CreateCategoryViewController.swift */; };
@@ -57,6 +56,7 @@
 		C3D05A292C515DB600C592E0 /* TrackersDataBase.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A282C515DB600C592E0 /* TrackersDataBase.xcdatamodel */; };
 		C3D05A2F2C580C4E00C592E0 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A2E2C580C4E00C592E0 /* OnboardingViewController.swift */; };
 		C3D05A312C580D8E00C592E0 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A302C580D8E00C592E0 /* OnboardingPageViewController.swift */; };
+		C3D05A332C58120900C592E0 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A322C58120900C592E0 /* CategoryViewModel.swift */; };
 		C3E2FE382B8FC9D3001FC934 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE372B8FC9D3001FC934 /* Tracker.swift */; };
 		C3E2FE3A2B8FC9E5001FC934 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE392B8FC9E5001FC934 /* TrackerCategory.swift */; };
 		C3E2FE3C2B8FC9F3001FC934 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE3B2B8FC9F3001FC934 /* TrackerRecord.swift */; };
@@ -109,7 +109,6 @@
 		C3D05A0B2C50268900C592E0 /* TrackersRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersRouter.swift; sourceTree = "<group>"; };
 		C3D05A0D2C50282E00C592E0 /* CreateActivityRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateActivityRouter.swift; sourceTree = "<group>"; };
 		C3D05A122C5028AC00C592E0 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		C3D05A142C5028D200C592E0 /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		C3D05A162C5028F000C592E0 /* CategoryScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryScreenModel.swift; sourceTree = "<group>"; };
 		C3D05A182C5028FF00C592E0 /* CategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRouter.swift; sourceTree = "<group>"; };
 		C3D05A1A2C50296300C592E0 /* CreateCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +118,7 @@
 		C3D05A282C515DB600C592E0 /* TrackersDataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TrackersDataBase.xcdatamodel; sourceTree = "<group>"; };
 		C3D05A2E2C580C4E00C592E0 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C3D05A302C580D8E00C592E0 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		C3D05A322C58120900C592E0 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		C3E2FE372B8FC9D3001FC934 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		C3E2FE392B8FC9E5001FC934 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		C3E2FE3B2B8FC9F3001FC934 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
@@ -343,7 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				C3D05A122C5028AC00C592E0 /* CategoryViewController.swift */,
-				C3D05A142C5028D200C592E0 /* CategoryPresenter.swift */,
+				C3D05A322C58120900C592E0 /* CategoryViewModel.swift */,
 				C3D05A162C5028F000C592E0 /* CategoryScreenModel.swift */,
 				C3D05A182C5028FF00C592E0 /* CategoryRouter.swift */,
 			);
@@ -478,7 +478,6 @@
 				C3F4D3E92B924DEF0089E4E0 /* AddTrackerScreenModel.swift in Sources */,
 				C3D05A072C5023BF00C592E0 /* CoreDataStack.swift in Sources */,
 				C3E2FE3C2B8FC9F3001FC934 /* TrackerRecord.swift in Sources */,
-				C3D05A152C5028D200C592E0 /* CategoryPresenter.swift in Sources */,
 				C3D05A1B2C50296300C592E0 /* CreateCategoryViewController.swift in Sources */,
 				C3D05A0C2C50268900C592E0 /* TrackersRouter.swift in Sources */,
 				C3D05A132C5028AC00C592E0 /* CategoryViewController.swift in Sources */,
@@ -498,6 +497,7 @@
 				C3F4D3E72B924D9C0089E4E0 /* AddTrackerViewController.swift in Sources */,
 				C3D05A2F2C580C4E00C592E0 /* OnboardingViewController.swift in Sources */,
 				C3D05A022C50231000C592E0 /* TrackerRecordStore.swift in Sources */,
+				C3D05A332C58120900C592E0 /* CategoryViewModel.swift in Sources */,
 				C33F1CA32C4465ED00D4F8FA /* EmojiCell.swift in Sources */,
 				C3D05A0E2C50282E00C592E0 /* CreateActivityRouter.swift in Sources */,
 				C3E2FE3E2B8FDD5E001FC934 /* TrackersPresenter.swift in Sources */,
