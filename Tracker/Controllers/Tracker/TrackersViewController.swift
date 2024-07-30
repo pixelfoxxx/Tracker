@@ -13,6 +13,7 @@ protocol TrackersViewProtocol: AnyObject {
     var currentDate: Date { get }
     func displayData(model: TrackersScreenModel, reloadData: Bool)
     func showCompleteTrackerErrorAlert()
+    func setCurrentDate(date: Date)
 }
 
 final class TrackersViewController: UIViewController {
@@ -204,7 +205,7 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func filtersButtonTapped() {
-        // TODO: - Complete logic
+        presenter.didTapFilterButton()
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -247,6 +248,10 @@ extension TrackersViewController: TrackersViewProtocol {
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
         present(alertController, animated: true)
+    }
+    
+    func setCurrentDate(date: Date) {
+        currentDate = date
     }
 }
 

@@ -13,6 +13,7 @@ protocol TrackersPresenterProtocol: AnyObject {
     func addTracker()
     func showSearchResults(with inputText: String)
     func filterTrackers(for date: Date)
+    func didTapFilterButton()
 }
 
 final class TrackersPresenter {
@@ -49,8 +50,11 @@ final class TrackersPresenter {
     }
     
     private weak var view: TrackersViewProtocol?
+    private let analyticService = AnalyticService()
     private let router: TrackersRouterProtocol
     private var filteredTrackersByCategory = [TrackerCategory: [Tracker]]()
+    private var inputFilter: Filter = .none
+    private var isFiltering: Bool { inputFilter != .none }
     
     init(
         view: TrackersViewProtocol,
@@ -143,6 +147,10 @@ final class TrackersPresenter {
     private func render(reloadData: Bool = true) {
         view?.displayData(model: buildScreenModel(), reloadData: reloadData)
     }
+    
+    private func sendAnalyticEvent(name: AnalyticsEvent, params: [AnyHashable : Any]) {
+        analyticService.report(event: name, params: params)
+    }
 }
 
 extension TrackersPresenter: TrackersPresenterProtocol {
@@ -192,6 +200,103 @@ extension TrackersPresenter: TrackersPresenterProtocol {
             }
             if !filteredTrackers.isEmpty {
                 filteredTrackersByCategory[category] = filteredTrackers
+            }
+        }
+        
+        render(reloadData: true)
+    }
+    
+    func didTapFilterButton() {
+        sendAnalyticEvent(name: .click, params: ["screen": "Trackers", "item": "filter"])
+        router.showFiltersController { [ weak self ] filter in
+            guard let self else { return }
+            self.inputFilter = filter
+            if filter == .trackersForToday {
+                self.view?.setCurrentDate(date: Date())
+            }
+            self.applyCurrentFilter()
+        }
+    }
+    
+    func applyCurrentFilter() {
+        switch inputFilter {
+        case .allTrackers:
+            self.showAllTrackers()
+        case .completedTrackers:
+            self.showCompletedTrackers()
+        case .uncompletedTrackers:
+            self.showUncompletedTrackers()
+        case .trackersForToday:
+            self.showTrackersForToday()
+        case .none:
+            filteredTrackersByCategory.removeAll()
+            render(reloadData: true)
+        }
+    }
+}
+
+private extension TrackersPresenter {
+    func showAllTrackers() {
+        guard let view = view else { return }
+        
+        filteredTrackersByCategory.removeAll()
+        
+        trackersByCategory.forEach { category, trackers in
+            let weekday = Calendar.current.component(.weekday, from: view.currentDate)
+            guard let selectedWeekday = Weekday(rawValue: weekday) else { return }
+            let trackers = trackers.filter { $0.schedule.contains(selectedWeekday) }
+            filteredTrackersByCategory[category] = trackers
+        }
+        
+        render(reloadData: true)
+    }
+    
+    func showTrackersForToday() {
+        guard let view = view else { return }
+        
+        let weekday = Calendar.current.component(.weekday, from: view.currentDate)
+        guard let selectedWeekday = Weekday(rawValue: weekday) else { return }
+        
+        self.filteredTrackersByCategory.removeAll()
+        trackersByCategory.values
+            .flatMap { $0 }
+            .filter { $0.schedule.contains(selectedWeekday) }
+            .forEach {
+                if let category = $0.category {
+                    self.filteredTrackersByCategory[category, default: []].append($0)
+                }
+            }
+        render(reloadData: true)
+    }
+    
+    func showCompletedTrackers() {
+        guard let view = view else { return }
+        filteredTrackersByCategory.removeAll()
+        
+        trackersByCategory.forEach { category, trackers in
+            let completedTrackers = trackers.filter { tracker in
+                let trackerRecord = TrackerRecord(id: tracker.id, date: view.currentDate)
+                return self.completedTrackers.contains(trackerRecord)
+            }
+            if !completedTrackers.isEmpty {
+                filteredTrackersByCategory[category] = completedTrackers
+            }
+        }
+        
+        render(reloadData: true)
+    }
+    
+    func showUncompletedTrackers() {
+        guard let view = view else { return }
+        filteredTrackersByCategory.removeAll()
+        
+        trackersByCategory.forEach { category, trackers in
+            let uncompletedTrackers = trackers.filter { tracker in
+                let trackerRecord = TrackerRecord(id: tracker.id, date: view.currentDate)
+                return !self.completedTrackers.contains(trackerRecord)
+            }
+            if !completedTrackers.isEmpty {
+                filteredTrackersByCategory[category] = uncompletedTrackers
             }
         }
         

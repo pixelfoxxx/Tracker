@@ -54,4 +54,11 @@ final class Assembler: AssemblerProtocol {
         view.viewModel = viewModel
         return view
     }
+    
+    static func buildFiltersController(onSelectFilter: @escaping (Filter) -> Void) -> UIViewController {
+        let filtersViewController = FiltersViewController()
+        let presenter = FiltersPresenter(view: filtersViewController, onSelectFilter: onSelectFilter)
+        filtersViewController.presenter = presenter
+        return filtersViewController
+    }
 }
