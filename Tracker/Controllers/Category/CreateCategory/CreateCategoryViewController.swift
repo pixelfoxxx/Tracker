@@ -97,7 +97,6 @@ final class CreateCategoryViewController: UIViewController {
         updateSaveButton(isEnabled: true)
         navigationController?.popViewController(animated: true)
     }
-    
 }
 
 //MARK: CreateCategoryViewProtocol

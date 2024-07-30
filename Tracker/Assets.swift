@@ -42,12 +42,15 @@ enum Assets {
             static let emptyTrackers = UIImage(named: "EmptyTrackers")
             static let emptyStatistic = UIImage(named: "EmptyStatistic")
             static let emptySearchResults = UIImage(named: "EmptySearchResult")
-            
-            
         }
         static let logo = UIImage(named: "Logo")
         static let done = UIImage(named: "TrackerDone")
         static let plus = UIImage(named: "TrackerPlus")
+        
+        struct Onboarding {
+            static let firstScreen = UIImage(named: "FirstOnboarding")
+            static let secondScreen = UIImage(named: "SecondOnboarding")
+        }
     }
     
     enum Fonts {
