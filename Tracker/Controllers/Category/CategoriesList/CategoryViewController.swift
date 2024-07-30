@@ -82,8 +82,8 @@ private extension CategoryViewController {
             self.title = model.title
             self.button.setTitle(model.buttonTitle, for: .normal)
             self.tableView.reloadData()
+            updateBackgroundViewVisiability()
         }
-        updateBackgroundViewVisiability()
     }
     
     func setupButton() {
@@ -105,6 +105,7 @@ private extension CategoryViewController {
     
     @objc private func addCategory() {
         viewModel.addCategory()
+        updateBackgroundViewVisiability()
     }
     
     func configureTableView() {

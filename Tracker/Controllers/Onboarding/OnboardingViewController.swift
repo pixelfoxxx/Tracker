@@ -45,10 +45,20 @@ final class OnboardingViewController: UIPageViewController {
         super.viewDidLoad()
         delegate = self
         dataSource = self
+        finishOnboarding()
         initializeFirstPage()
         setupUIComponents()
     }
-    
+    private func finishOnboarding() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(true, forKey: "hasSeenOnboarding")
+        
+        // Переход на основной экран
+        let mainViewController = TabBarViewController()
+        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+            sceneDelegate.window?.rootViewController = mainViewController
+        }
+    }
     private func initializeFirstPage() {
         if let firstPage = onboardingPages.first {
             setViewControllers([firstPage], direction: .forward, animated: true, completion: nil)
