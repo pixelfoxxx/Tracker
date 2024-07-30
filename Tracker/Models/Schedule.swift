@@ -10,10 +10,10 @@ import Foundation
 @objc(Schedule)
 public class Schedule: NSObject, NSSecureCoding {
     public static var supportsSecureCoding: Bool = true
-
+    
     var weekdays: Set<Weekday> = []
     var date: Date?
-
+    
     init(
         weekdays: Set<Weekday>,
         date: Date? = nil
@@ -21,7 +21,7 @@ public class Schedule: NSObject, NSSecureCoding {
         self.weekdays = weekdays
         self.date = date
     }
-
+    
     required public init?(coder: NSCoder) {
         if let weekdaysStrRaw = coder.decodeObject(forKey: "weekdays") as? String {
             let weekdaysArr = weekdaysStrRaw.split(separator: ";")
@@ -31,7 +31,7 @@ public class Schedule: NSObject, NSSecureCoding {
         }
         self.date = coder.decodeObject(of: NSDate.self, forKey: "date") as Date?
     }
-
+    
     public func encode(with coder: NSCoder) {
         let weekdaysArrRaw: String = weekdays.map { String($0.rawValue) }.joined(separator: ";")
         coder.encode(weekdaysArrRaw, forKey: "weekdays")
@@ -41,7 +41,7 @@ public class Schedule: NSObject, NSSecureCoding {
     func addWeekday(_ weekday: Weekday) {
         weekdays.insert(weekday)
     }
-
+    
     func removeWeekday(_ weekday: Weekday) {
         weekdays.remove(weekday)
     }
@@ -56,13 +56,13 @@ enum Weekday: Int {
     
     var shortName: String {
         switch self {
-        case .monday: return "Пн"
-        case .tuesday: return "Вт"
-        case .wednesday: return "Ср"
-        case .thursday: return "Чт"
-        case .friday: return "Пт"
-        case .saturday: return "Сб"
-        case .sunday: return "Вс"
+        case .monday: return NSLocalizedString("MonShort", comment: "")
+        case .tuesday: return NSLocalizedString("TueShort", comment: "")
+        case .wednesday: return NSLocalizedString("WedShort", comment: "")
+        case .thursday: return NSLocalizedString("ThuShort", comment: "")
+        case .friday: return NSLocalizedString("FriShort", comment: "")
+        case .saturday: return NSLocalizedString("SatShort", comment: "")
+        case .sunday: return NSLocalizedString("SunShort", comment: "")
         }
     }
 }

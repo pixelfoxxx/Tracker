@@ -1,0 +1,55 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by Юрий Клеймёнов on 30/07/2024.
+  
+*/
+
+"Monday" = "Monday";
+"Tuesday" = "Tuesday";
+"Wednesday" = "Wednesday";
+"Thursday" = "Thursday";
+"Friday" = "Friday";
+"Saturday" = "Saturday";
+"Sunday" = "Sunday";
+
+
+"What are we gonna track?" = "What are we gonna track?";
+"Habits and events can be combined by meaning" = "Habits and events can be combined by meaning";
+"There's nothing to analyse yet" = "There's nothing to analyse yet";
+"Nothing found" = "Nothing found";
+
+"That's the technology!" = "That's the technology!";
+"Track only what you want" = "Track only what you want";
+"Even if it's not litres of water and yoga" = "Even if it's not litres of water and yoga";
+"Category" = "Category";
+"Add category" = "Add category";
+"New category" = "New category";
+"Enter the category name" = "Enter the category name";
+"Done" = "Done";
+"Schedule" = "Schedule";
+"New habit" = "New habit";
+"New irregular event" = "New irregular event";
+"Cancel" = "Cancel";
+"Create" = "Create";
+"Color" = "Color";
+"Enter the tracker name" = "Enter the tracker name";
+"Every day" = "Every day";
+"Weekdays" = "Weekdays";
+"Weekend" = "Weekend";
+"Habit" = "Habit";
+"Irregular event" = "Irregular event";
+"Tracker creating" = "Tracker creating";
+"Trackers" = "Trackers";
+"Filters" = "Filters";
+"Search" = "Search";
+"Statistic" = "Statistic";
+"Emoji" = "Emoji";
+"MonShort" = "Mon";
+"TueShort" = "Tue";
+"WedShort" = "Wed";
+"ThuShort" = "Thu";
+"FriShort" = "Fri";
+"SatShort" = "Sat";
+"SunShort" = "Sun";

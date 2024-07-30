@@ -56,11 +56,11 @@ final class CreateCategoryPresenter: CreateCategoryPresenterProtocol {
     
     private func buildScreenModel() -> CreateCategoryScreenModel {
         return CreateCategoryScreenModel(
-            title: "Новая категория",
+            title: NSLocalizedString("New category", comment: ""),
             tableData: CreateCategoryScreenModel.TableData(sections: [
                 .simple(cells: [
                     .textFieldCell(TextFieldCellViewModel(
-                        placeholderText: "Введите название категории",
+                        placeholderText: NSLocalizedString("Enter the category name", comment: ""),
                         inputText: enteredCategoryName,
                         textDidChanged: { [ weak self ] categoryName in
                             guard let self else { return }
@@ -68,7 +68,7 @@ final class CreateCategoryPresenter: CreateCategoryPresenterProtocol {
                         }))
                 ])
             ]),
-            doneButtonTitle: "Готово")
+            doneButtonTitle: NSLocalizedString("Done", comment: ""))
     }
     
     private func render() {

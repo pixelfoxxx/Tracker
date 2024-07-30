@@ -22,7 +22,7 @@ final class TrackersPresenter {
             let trackerStore = TrackerStore()
             return trackerStore.fetchTrackers()
         }
-
+        
         set(newTrackers) {
             for tracker in newTrackers {
                 guard let category = tracker.category else { continue }
@@ -68,45 +68,45 @@ final class TrackersPresenter {
                 .flatMap { $0 }
                 .filter { $0.category == category }
                 .compactMap { tracker -> TrackersScreenModel.CollectionData.Cell? in
-                guard let view else { return nil }
-                let trackerRecord = TrackerRecord(id: tracker.id, date: view.currentDate)
-                let isCompleted = self.completedTrackers.contains(trackerRecord)
-                let daysCount = completedTrackers.filter({$0.id == tracker.id}).count
-                return .trackerCell(TrackerCollectionViewCellViewModel(
-                    emoji: tracker.emoji,
-                    title: tracker.title,
-                    isPinned: false, //MARK: - TODO
-                    daysCount: daysCount,
-                    color: tracker.color,
-                    doneButtonHandler: { [ weak self ] in
-                        guard let self else { return }
-                        if view.currentDate > Date() {
-                            view.showCompleteTrackerErrorAlert()
-                            return
-                        } else {
-                            if completedTrackers.contains(trackerRecord) {
-                                deleteTrackerRecord(withId: trackerRecord.id)
-                                completedTrackers.remove(trackerRecord)
+                    guard let view else { return nil }
+                    let trackerRecord = TrackerRecord(id: tracker.id, date: view.currentDate)
+                    let isCompleted = self.completedTrackers.contains(trackerRecord)
+                    let daysCount = completedTrackers.filter({$0.id == tracker.id}).count
+                    return .trackerCell(TrackerCollectionViewCellViewModel(
+                        emoji: tracker.emoji,
+                        title: tracker.title,
+                        isPinned: false, //MARK: - TODO
+                        daysCount: daysCount,
+                        color: tracker.color,
+                        doneButtonHandler: { [ weak self ] in
+                            guard let self else { return }
+                            if view.currentDate > Date() {
+                                view.showCompleteTrackerErrorAlert()
+                                return
                             } else {
-                                addTrackerRecord(trackerRecord: trackerRecord)
-                                completedTrackers.insert(trackerRecord)
+                                if completedTrackers.contains(trackerRecord) {
+                                    deleteTrackerRecord(withId: trackerRecord.id)
+                                    completedTrackers.remove(trackerRecord)
+                                } else {
+                                    addTrackerRecord(trackerRecord: trackerRecord)
+                                    completedTrackers.insert(trackerRecord)
+                                }
                             }
-                        }
-                        DispatchQueue.main.async {
-                            self.render(reloadData: true)
-                        }
-                    },
-                    isCompleted: isCompleted)
-                )
-            }
+                            DispatchQueue.main.async {
+                                self.render(reloadData: true)
+                            }
+                        },
+                        isCompleted: isCompleted)
+                    )
+                }
             return .headeredSection(header: category.title, cells: cells)
         }
         
         return TrackersScreenModel (
-            title: "Трекеры",
+            title: NSLocalizedString("Trackers", comment: ""),
             emptyState: backgroundState(),
             collectionData: .init(sections: sections),
-            filtersButtonTitle: "Фильтры",
+            filtersButtonTitle: NSLocalizedString("Filters", comment: ""),
             addBarButtonColor: Assets.Colors.navBarItem ?? .black
         )
     }
@@ -185,7 +185,7 @@ extension TrackersPresenter: TrackersPresenterProtocol {
         guard let selectedWeekday = Weekday(rawValue: weekday) else { return }
         
         filteredTrackersByCategory.removeAll()
-    
+        
         trackersByCategory.forEach { category, trackers in
             let filteredTrackers = trackers.filter {
                 $0.schedule.contains(selectedWeekday) || $0.schedule.date == date

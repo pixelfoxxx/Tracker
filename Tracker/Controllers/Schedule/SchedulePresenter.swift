@@ -9,13 +9,17 @@
 import Foundation
 
 enum WeekDay: String {
-    case monday = "Понедельник"
-    case thusday = "Вторник"
-    case wednesday = "Среда"
-    case thursday = "Четверг"
-    case friday = "Пятницa"
-    case saturday = "Суббота"
-    case sunday = "Воскресенье"
+    case monday = "Monday"
+    case tuesday = "Tuesday"
+    case wednesday = "Wednesday"
+    case thursday = "Thursday"
+    case friday = "Friday"
+    case saturday = "Saturday"
+    case sunday = "Sunday"
+    
+    var localized: String {
+        return NSLocalizedString(self.rawValue, comment: "")
+    }
 }
 
 protocol SchedulePresenterProtocol: AnyObject {
@@ -28,7 +32,7 @@ final class SchedulePresenter {
     var onSave: (Schedule) -> Void
     
     private weak var view: ScheduleViewProtocol?
-    private var days: [WeekDay] = [.monday, .thusday, .wednesday, .thursday, .friday, .saturday, .sunday]
+    private var days: [WeekDay] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
     private var selectedDays: Set<Weekday> = []
     
     init(
@@ -43,15 +47,15 @@ final class SchedulePresenter {
     
     private func buildScreenModel() -> ScheduleScreenModel {
         ScheduleScreenModel(
-            title: "Расписание",
+            title: NSLocalizedString("Schedule", comment: ""),
             tableData: .init(sections: [
                 .simple(cells: days.map({
                     let day = $0.toModelWeekday
                     return .switchCell(.init(
-                        text: $0.rawValue,
+                        text: $0.localized,
                         isOn: selectedDays.contains(day),
-                        onChange: { [ weak self ] isOn in
-                            guard let self else { return }
+                        onChange: { [weak self] isOn in
+                            guard let self = self else { return }
                             if isOn {
                                 self.selectedDays.insert(day)
                             } else {
@@ -59,7 +63,7 @@ final class SchedulePresenter {
                             }
                         }))
                 })),
-                .simple(cells: [.labledCell(.init(title: "Готово", style: .button))])
+                .simple(cells: [.labledCell(.init(title: NSLocalizedString("Done", comment: ""), style: .button))])
             ])
         )
     }
@@ -84,7 +88,7 @@ extension WeekDay {
     var toModelWeekday: Weekday {
         switch self {
         case .monday: return .monday
-        case .thusday: return .tuesday
+        case .tuesday: return .tuesday
         case .wednesday: return .wednesday
         case .thursday: return .thursday
         case .friday: return .friday

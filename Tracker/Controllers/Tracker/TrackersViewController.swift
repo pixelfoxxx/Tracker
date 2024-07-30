@@ -179,7 +179,7 @@ final class TrackersViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.placeholder = NSLocalizedString("Search", comment: "")
         navigationItem.searchController = searchController
     }
     

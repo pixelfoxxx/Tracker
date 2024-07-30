@@ -34,9 +34,9 @@ final class AddTrackerPresenter {
     
     private func buildScreenModel() -> AddTrackerScreenModel {
         AddTrackerScreenModel(
-            title: "Создание трекера",
-            habitButtonTitle: "Привычка",
-            eventButtonTitle: "Нерегулярное событие",
+            title: NSLocalizedString("Tracker creating", comment: ""),
+            habitButtonTitle: NSLocalizedString("Habit", comment: ""),
+            eventButtonTitle: NSLocalizedString("Irregular event", comment: ""),
             backgroundColor: .background
         )
     }
