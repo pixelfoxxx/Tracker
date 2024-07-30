@@ -37,6 +37,7 @@ final class OnboardingViewController: UIPageViewController {
         button.clipsToBounds = true
         button.backgroundColor = .buttons
         button.setTitle(NSLocalizedString("That's the technology!", comment: ""), for: .normal)
+        button.setTitleColor(.buttonTitle, for: .normal)
         button.addTarget(self, action: #selector(navigateToMainScreen), for: .touchUpInside)
         return button
     }()

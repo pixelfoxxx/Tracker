@@ -57,7 +57,7 @@ final class CreateCategoryViewController: UIViewController {
         
         saveButton.addTarget(self, action: #selector(saveCategory), for: .touchUpInside)
         saveButton.backgroundColor = .buttons
-        saveButton.setTitleColor(.white, for: .normal)
+        saveButton.setTitleColor(.buttonTitle, for: .normal)
         saveButton.layer.cornerRadius = .cornerRadius
         saveButton.clipsToBounds = true
     }

@@ -98,7 +98,7 @@ private extension CategoryViewController {
         
         button.addTarget(self, action: #selector(addCategory), for: .touchUpInside)
         button.backgroundColor = .buttons
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.buttonTitle, for: .normal)
         button.layer.cornerRadius = .cornerRadius
         button.clipsToBounds = true
     }
