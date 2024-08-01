@@ -25,6 +25,9 @@ final class StatsViewController: UIViewController {
     private lazy var perfectDaysView = StatisticElementView()
     private lazy var completedTrackersView = StatisticElementView()
     private lazy var avarageValueView = StatisticElementView()
+    private lazy var backgroundView = BackgroundView()
+    
+    private var completedTrackerCount: Int = 0
     
     var presenter: StatisticPresenterProtocol!
     
@@ -48,6 +51,32 @@ final class StatsViewController: UIViewController {
     
     private func configureView() {
         view.backgroundColor = Assets.Colors.background
+        configureBackgroundView()
+    }
+    
+    private func checkForEmptyStats() {
+        let trackerStore = TrackerRecordStore()
+        let records = trackerStore.fetchTrackerRecords()
+        
+        if records.isEmpty {
+            stackView.isHidden = true
+            backgroundView.state = .emptyStatistic
+            backgroundView.isHidden = false
+        } else {
+            stackView.isHidden = false
+            backgroundView.isHidden = true
+        }
+    }
+    
+    private func configureBackgroundView() {
+        view.addSubview(backgroundView)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor, constant: 375),
+            backgroundView.widthAnchor.constraint(equalToConstant: 200),
+            backgroundView.heightAnchor.constraint(equalToConstant: 200)
+        ])
     }
     
     private func setup() {
@@ -65,6 +94,7 @@ final class StatsViewController: UIViewController {
                 configureAvarageView(model: model)
             }
         }
+        checkForEmptyStats()
     }
     
     private func setupView() {
@@ -73,6 +103,7 @@ final class StatsViewController: UIViewController {
     
     private func setupStack() {
         view.addSubview(stackView)
+        navigationController?.navigationBar.prefersLargeTitles = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         stackView.addArrangedSubview(bestPeriodView)
