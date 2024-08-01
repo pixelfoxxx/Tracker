@@ -76,6 +76,10 @@
 		C3D05A792C59B00300C592E0 /* FiltersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A782C59B00300C592E0 /* FiltersPresenter.swift */; };
 		C3D05A7B2C59B01F00C592E0 /* FiltersScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A7A2C59B01F00C592E0 /* FiltersScreenModel.swift */; };
 		C3D05A7D2C59B04100C592E0 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A7C2C59B04100C592E0 /* FilterCell.swift */; };
+		C3D05A802C5BCC7A00C592E0 /* EditTrackersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A7F2C5BCC7A00C592E0 /* EditTrackersViewController.swift */; };
+		C3D05A822C5BCC8700C592E0 /* EditTrackersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A812C5BCC8700C592E0 /* EditTrackersPresenter.swift */; };
+		C3D05A842C5BCC9200C592E0 /* EditTrackersScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A832C5BCC9200C592E0 /* EditTrackersScreenModel.swift */; };
+		C3D05A862C5BCC9C00C592E0 /* EditTrackersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D05A852C5BCC9C00C592E0 /* EditTrackersRouter.swift */; };
 		C3E2FE382B8FC9D3001FC934 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE372B8FC9D3001FC934 /* Tracker.swift */; };
 		C3E2FE3A2B8FC9E5001FC934 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE392B8FC9E5001FC934 /* TrackerCategory.swift */; };
 		C3E2FE3C2B8FC9F3001FC934 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E2FE3B2B8FC9F3001FC934 /* TrackerRecord.swift */; };
@@ -168,6 +172,10 @@
 		C3D05A782C59B00300C592E0 /* FiltersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersPresenter.swift; sourceTree = "<group>"; };
 		C3D05A7A2C59B01F00C592E0 /* FiltersScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersScreenModel.swift; sourceTree = "<group>"; };
 		C3D05A7C2C59B04100C592E0 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		C3D05A7F2C5BCC7A00C592E0 /* EditTrackersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackersViewController.swift; sourceTree = "<group>"; };
+		C3D05A812C5BCC8700C592E0 /* EditTrackersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackersPresenter.swift; sourceTree = "<group>"; };
+		C3D05A832C5BCC9200C592E0 /* EditTrackersScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackersScreenModel.swift; sourceTree = "<group>"; };
+		C3D05A852C5BCC9C00C592E0 /* EditTrackersRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackersRouter.swift; sourceTree = "<group>"; };
 		C3E2FE372B8FC9D3001FC934 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		C3E2FE392B8FC9E5001FC934 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		C3E2FE3B2B8FC9F3001FC934 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
@@ -324,6 +332,7 @@
 		C378942A2B797A1B004A5573 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C3D05A7E2C5BCC5C00C592E0 /* EditTrackers */,
 				C3D05A752C59AFDC00C592E0 /* Filters */,
 				C3D05A2A2C580BE400C592E0 /* Onboarding */,
 				C3D05A0F2C50284C00C592E0 /* Category */,
@@ -487,6 +496,17 @@
 				C3D05A7A2C59B01F00C592E0 /* FiltersScreenModel.swift */,
 			);
 			path = Filters;
+			sourceTree = "<group>";
+		};
+		C3D05A7E2C5BCC5C00C592E0 /* EditTrackers */ = {
+			isa = PBXGroup;
+			children = (
+				C3D05A7F2C5BCC7A00C592E0 /* EditTrackersViewController.swift */,
+				C3D05A812C5BCC8700C592E0 /* EditTrackersPresenter.swift */,
+				C3D05A832C5BCC9200C592E0 /* EditTrackersScreenModel.swift */,
+				C3D05A852C5BCC9C00C592E0 /* EditTrackersRouter.swift */,
+			);
+			path = EditTrackers;
 			sourceTree = "<group>";
 		};
 		C3F4D3E52B924D760089E4E0 /* AddTracker */ = {
@@ -696,6 +716,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3E2FE3A2B8FC9E5001FC934 /* TrackerCategory.swift in Sources */,
+				C3D05A862C5BCC9C00C592E0 /* EditTrackersRouter.swift in Sources */,
 				C3F4D3EB2B924E020089E4E0 /* AddTrackerPresenter.swift in Sources */,
 				C3D05A672C599D5800C592E0 /* StatisticPresenter.swift in Sources */,
 				C3D059FE2C5022EC00C592E0 /* TrackerStore.swift in Sources */,
@@ -739,6 +760,7 @@
 				C33F1CA52C4465ED00D4F8FA /* TextFieldCell.swift in Sources */,
 				C3D05A172C5028F000C592E0 /* CategoryScreenModel.swift in Sources */,
 				C33F1CAB2C44665D00D4F8FA /* ScheduleScreenModel.swift in Sources */,
+				C3D05A842C5BCC9200C592E0 /* EditTrackersScreenModel.swift in Sources */,
 				C33F1CAA2C44665D00D4F8FA /* SchedulePresenter.swift in Sources */,
 				C378942E2B797B36004A5573 /* StatsViewController.swift in Sources */,
 				C33F1C9F2C4465ED00D4F8FA /* LabeledCell.swift in Sources */,
@@ -752,11 +774,13 @@
 				C33F1CA32C4465ED00D4F8FA /* EmojiCell.swift in Sources */,
 				C3D05A0E2C50282E00C592E0 /* CreateActivityRouter.swift in Sources */,
 				C3D05A632C599CA700C592E0 /* StatisticElementView.swift in Sources */,
+				C3D05A822C5BCC8700C592E0 /* EditTrackersPresenter.swift in Sources */,
 				C3E2FE3E2B8FDD5E001FC934 /* TrackersPresenter.swift in Sources */,
 				C37894172B794A2B004A5573 /* SceneDelegate.swift in Sources */,
 				C3D05A052C50236700C592E0 /* TrackerCoreData.swift in Sources */,
 				C3D05A312C580D8E00C592E0 /* OnboardingPageViewController.swift in Sources */,
 				C31D30732BE2EE1E00D26796 /* Assembler.swift in Sources */,
+				C3D05A802C5BCC7A00C592E0 /* EditTrackersViewController.swift in Sources */,
 				C3D05A7B2C59B01F00C592E0 /* FiltersScreenModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
