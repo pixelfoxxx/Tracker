@@ -8,7 +8,6 @@
 import UIKit
 
 protocol TrackersViewProtocol: AnyObject {
-    var isFiltering: Bool { get }
     var isSearching: Bool { get }
     var currentDate: Date { get }
     func displayData(model: TrackersScreenModel, reloadData: Bool)
@@ -31,9 +30,7 @@ final class TrackersViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
-    
-    var isFiltering: Bool = false
-    
+        
     var isSearching: Bool {
         searchController.isActive && !searchBarIsEmpty
     }
@@ -54,9 +51,12 @@ final class TrackersViewController: UIViewController {
     
     var currentDate: Date = {
         let calendar = Calendar.current
-        let date = calendar.startOfDay(for: Date())
-        return date
-    }()
+        return calendar.startOfDay(for: Date())
+    }() {
+        didSet {
+            presenter.filterTrackers(for: currentDate)
+        }
+    }
     
     //MARK: - Lifecycle methods
     
@@ -214,10 +214,8 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
-        isFiltering = true
         currentDate = sender.date
-        presenter.filterTrackers(for: currentDate)
-        updateBackgroundViewVisibility()
+        print(currentDate)
     }
     
     @objc private func hideKeyboard() {

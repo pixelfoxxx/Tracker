@@ -61,7 +61,7 @@ final class TrackersPresenter {
     private weak var view: TrackersViewProtocol?
     private let router: TrackersRouterProtocol
     private var filteredTrackersByCategory = [TrackerCategory: [Tracker]]()
-    private var inputFilter: Filter = .none
+    private var inputFilter: Filter = .allTrackers
     private var isFiltering: Bool { inputFilter != .none }
     
     init(
