@@ -38,6 +38,6 @@ final class TrackersRouter: TrackersRouterProtocol {
     func showEditTracker(tracker: Tracker, daysCount: Int, onSave: @escaping (Tracker) -> Void) {
         guard let view = view as? UIViewController else { return }
         let editTrackerController = Assembler.buildEditTrackerModule(tracker: tracker, daysCount: daysCount)
-        view.present(editTrackerController, animated: true)
+        view.navigationController?.pushViewController(editTrackerController, animated: true)
     }
 }

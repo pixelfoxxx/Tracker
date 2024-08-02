@@ -152,14 +152,14 @@ final class EditTrackerViewController: UIViewController {
     }
     
     @objc private func cancelButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc private func saveButtonTapped() {
         DispatchQueue.global().sync {
             presenter.save()
         }
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
 

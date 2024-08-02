@@ -24,7 +24,7 @@ final class TrackersPresenter {
             let trackerStore = TrackerStore()
             return trackerStore.fetchTrackers()
         }
-
+        
         set(newTrackers) {
             for tracker in newTrackers {
                 guard let category = tracker.category else { continue }
@@ -94,7 +94,7 @@ final class TrackersPresenter {
                 sections.append(.headeredSection(header: category.title, cells: cells))
             }
         }
-
+        
         return TrackersScreenModel (
             title: NSLocalizedString("Trackers", comment: ""),
             emptyState: backgroundState(),
@@ -171,7 +171,7 @@ final class TrackersPresenter {
     }
     
     private func deleteTrackerHandler(tracker: Tracker) -> () -> Void {
-       return { [ weak self ] in
+        return { [ weak self ] in
             guard let self else { return }
             self.sendAnaliticEvent(name: .click, params: ["screen": "Trackers", "item": "delete"])
             self.deleteTracker(withId: tracker.id)
@@ -324,6 +324,7 @@ extension TrackersPresenter: TrackersPresenterProtocol {
             filteredTrackersByCategory.removeAll()
             render(reloadData: true)
         }
+        render(reloadData: true)
     }
 }
 

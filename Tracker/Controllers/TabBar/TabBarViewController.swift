@@ -17,7 +17,6 @@ final class TabBarViewController: UITabBarController {
 extension TabBarViewController {
     private func setupTabBar() {
         
-        tabBar.isTranslucent = false
         tabBar.backgroundColor = Assets.Colors.background
         
         let trackerVC = TrackersViewController()

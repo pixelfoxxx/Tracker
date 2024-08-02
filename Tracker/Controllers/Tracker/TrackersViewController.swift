@@ -60,6 +60,11 @@ final class TrackersViewController: UIViewController {
     
     //MARK: - Lifecycle methods
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.setup()
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         router = TrackersRouter(view: self)
@@ -235,6 +240,7 @@ extension TrackersViewController: TrackersViewProtocol {
         if reloadData {
             collectionView.reloadData()
         }
+        updateBackgroundViewVisibility()
     }
     
     func showCreateController(viewController: UIViewController) {
