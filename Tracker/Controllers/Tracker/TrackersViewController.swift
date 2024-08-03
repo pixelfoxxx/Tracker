@@ -215,7 +215,6 @@ final class TrackersViewController: UIViewController {
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
         currentDate = sender.date
-        print(currentDate)
     }
     
     @objc private func hideKeyboard() {

@@ -61,7 +61,7 @@ final class TrackersPresenter {
     private weak var view: TrackersViewProtocol?
     private let router: TrackersRouterProtocol
     private var filteredTrackersByCategory = [TrackerCategory: [Tracker]]()
-    private var inputFilter: Filter = .allTrackers
+    private var inputFilter: Filter = .none
     private var isFiltering: Bool { inputFilter != .none }
     
     init(
@@ -291,6 +291,7 @@ extension TrackersPresenter: TrackersPresenterProtocol {
     }
     
     func filterTrackers(for date: Date) {
+        inputFilter = .trackersForToday
         applyCurrentFilter()
     }
     
@@ -336,11 +337,14 @@ private extension TrackersPresenter {
         
         filteredTrackersByCategory.removeAll()
         
+        let weekday = Calendar.current.component(.weekday, from: view.currentDate)
+        guard let selectedWeekday = Weekday(rawValue: weekday) else { return }
+
         trackersByCategory.forEach { category, trackers in
-            let weekday = Calendar.current.component(.weekday, from: view.currentDate)
-            guard let selectedWeekday = Weekday(rawValue: weekday) else { return }
-            let trackers = trackers.filter { $0.schedule.contains(selectedWeekday) }
-            filteredTrackersByCategory[category] = trackers
+            let filteredTrackers = trackers.filter { $0.schedule.contains(selectedWeekday) }
+            if !filteredTrackers.isEmpty {
+                filteredTrackersByCategory[category] = filteredTrackers
+            }
         }
         
         render(reloadData: true)

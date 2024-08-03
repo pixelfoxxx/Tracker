@@ -23,12 +23,12 @@ final class EditTrackerRouter: EditTrackerRouterProtocol {
     func showSchedule(selectedDays: Set<Weekday>, onSave: @escaping (Schedule) -> Void) {
         guard let view = view as? UIViewController else { return }
         let vc = Assembler.buildScheduleModule(selectedDays: selectedDays, onSave: onSave)
-        view.present(vc, animated: true)
+        view.navigationController?.pushViewController(vc, animated: true)
     }
     
     func showCategories(state: CategoryScreenState, categories: [TrackerCategory], categoryIsChosen: @escaping (TrackerCategory) -> Void) {
         guard let view = view as? UIViewController else { return }
         let vc = Assembler.buildCategoriesModule(state: state, categories: categories, categoryIsChosen: categoryIsChosen)
-        view.present(vc, animated: true)
+        view.navigationController?.pushViewController(vc, animated: true)
     }
 }
