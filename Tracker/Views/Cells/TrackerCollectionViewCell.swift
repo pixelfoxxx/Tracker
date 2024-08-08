@@ -10,20 +10,26 @@ import UIKit
 struct TrackerCollectionViewCellViewModel {
     var emoji: String?
     var title: String?
-    var isPinned: Bool?
+    var isPinned: Bool
     var daysCount: Int?
     var color: UIColor?
     var doneButtonHandler: TrackerCollectionViewCell.ActionClousure
+    var pinHandler: (Bool) -> Void
     var isCompleted: Bool
+    var deleteTrackerHandler: () -> Void
+    var editTrackerHandler: () -> Void
     
     init(
         emoji: String?,
         title: String?,
-        isPinned: Bool?,
+        isPinned: Bool,
         daysCount: Int?,
         color: UIColor?,
         doneButtonHandler: @escaping TrackerCollectionViewCell.ActionClousure,
-        isCompleted: Bool
+        pinHandler: @escaping (Bool) -> Void,
+        isCompleted: Bool,
+        deleteTrackerHandler: @escaping () -> Void,
+        editTrackerHandler: @escaping () -> Void
     ) {
         self.emoji = emoji
         self.title = title
@@ -31,7 +37,10 @@ struct TrackerCollectionViewCellViewModel {
         self.daysCount = daysCount
         self.color = color
         self.doneButtonHandler = doneButtonHandler
+        self.pinHandler = pinHandler
         self.isCompleted = isCompleted
+        self.deleteTrackerHandler = deleteTrackerHandler
+        self.editTrackerHandler = editTrackerHandler
     }
 }
 
@@ -45,6 +54,12 @@ class TrackerCollectionViewCell: UICollectionViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private lazy var pinImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let emojiLabel: UILabel = {
@@ -97,6 +112,9 @@ class TrackerCollectionViewCell: UICollectionViewCell {
     }()
     
     private var doneAction: ActionClousure = {}
+    private var togglePinAction: ((Bool) -> Void)?
+    private var deleteTrackerHandler: (() -> Void)?
+    private var editTrackerHandler: (() -> Void)?
     
     var viewModel: TrackerCollectionViewCellViewModel? {
         didSet {
@@ -107,6 +125,7 @@ class TrackerCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupContextMenu()
     }
     
     required init?(coder: NSCoder) {
@@ -128,12 +147,13 @@ class TrackerCollectionViewCell: UICollectionViewCell {
     
     private func setupUI() {
         contentView.addSubview(coloredRectangleView)
-        contentView.addSubview(emojiLabel)
-        contentView.addSubview(whiteEmojiBackground)
-        contentView.addSubview(titleLabel)
         contentView.addSubview(nonColoredRectangleView)
-        contentView.addSubview(daysCountLabel)
-        contentView.addSubview(doneButton)
+        coloredRectangleView.addSubview(emojiLabel)
+        coloredRectangleView.addSubview(whiteEmojiBackground)
+        coloredRectangleView.addSubview(titleLabel)
+        coloredRectangleView.addSubview(pinImageView)
+        nonColoredRectangleView.addSubview(daysCountLabel)
+        nonColoredRectangleView.addSubview(doneButton)
         
         NSLayoutConstraint.activate([
             coloredRectangleView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -165,7 +185,12 @@ class TrackerCollectionViewCell: UICollectionViewCell {
             doneButton.heightAnchor.constraint(equalToConstant: 34),
             
             daysCountLabel.centerYAnchor.constraint(equalTo: doneButton.centerYAnchor),
-            daysCountLabel.leadingAnchor.constraint(equalTo: nonColoredRectangleView.leadingAnchor, constant: 12)
+            daysCountLabel.leadingAnchor.constraint(equalTo: nonColoredRectangleView.leadingAnchor, constant: 12),
+            
+            pinImageView.topAnchor.constraint(equalTo: coloredRectangleView.topAnchor, constant: 12),
+            pinImageView.trailingAnchor.constraint(equalTo: coloredRectangleView.trailingAnchor, constant: -4),
+            pinImageView.widthAnchor.constraint(equalToConstant: 24),
+            pinImageView.heightAnchor.constraint(equalToConstant: 24)
         ])
     }
     
@@ -175,6 +200,9 @@ class TrackerCollectionViewCell: UICollectionViewCell {
         setupContainerView()
         setupDoneButton()
         setupEmojiLabel()
+        setupPinImageView()
+        deleteTrackerHandler = viewModel?.deleteTrackerHandler
+        editTrackerHandler = viewModel?.editTrackerHandler
     }
     
     private func setupContainerView() {
@@ -182,27 +210,32 @@ class TrackerCollectionViewCell: UICollectionViewCell {
         coloredRectangleView.backgroundColor = viewModel.color
     }
     
-    private func setupDaysCountLabel() {
-        guard let viewModel else { return }
-        daysCountLabel.text = "\(viewModel.daysCount ?? 0) \(pluralizeDays(viewModel.daysCount ?? 0))"
+    private func setupContextMenu() {
+        let interaction = UIContextMenuInteraction(delegate: self)
+        coloredRectangleView.addInteraction(interaction)
     }
     
-    private func pluralizeDays(_ count: Int) -> String {
-        let remainder10 = count % 10
-        let remainder100 = count % 100
-        
-        if remainder10 == 1 && remainder100 != 11 {
-            return "день"
-        } else if remainder10 >= 2 && remainder100 <= 4 && (remainder100 < 10 || remainder100 >= 20) {
-            return "дня"
-        } else {
-            return "дней"
-        }
+    private func setupDaysCountLabel() {
+        guard let viewModel else { return }
+        let daysCount = viewModel.daysCount ?? 0
+        let daysWord = correctDaysForm(daysCount: daysCount)
+        daysCountLabel.text = "\(daysCount) \(daysWord)"
     }
     
     private func setupTitleLabel() {
         guard let viewModel else { return }
         titleLabel.text = viewModel.title
+    }
+    
+    private func setupPinImageView() {
+        guard let viewModel else { return }
+        pinImageView.isHidden = !(viewModel.isPinned)
+        pinImageView.image = viewModel.isPinned
+        ? UIImage(named: "PinImage")?
+            .withTintColor(.white, renderingMode: .alwaysOriginal)
+        : nil
+        togglePinAction = viewModel.pinHandler
+       
     }
     
     private func setupEmojiLabel() {
@@ -227,5 +260,58 @@ class TrackerCollectionViewCell: UICollectionViewCell {
     
     @objc private func doneButtonAction() {
         doneAction()
+    }
+}
+
+//MARK: - UIContextMenuInteractionDelegate
+
+extension TrackerCollectionViewCell: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(
+        _ interaction: UIContextMenuInteraction,
+        configurationForMenuAtLocation location: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [ weak self ] suggestedActions -> UIMenu? in
+            guard let self else { return .none }
+            let pinAction = UIAction(
+                title: (self.viewModel?.isPinned ?? false)
+                ? NSLocalizedString("Unpin", comment: "")
+                : NSLocalizedString("Pin", comment: "")
+            ) { [ weak self ] _ in
+                guard let self else { return }
+                self.viewModel?.pinHandler(!(viewModel?.isPinned ?? false))
+            }
+            
+            let editAction = UIAction(
+                title: NSLocalizedString("Edit", comment: "")
+            ) { [ weak self ] _ in
+                guard let self else { return }
+                self.viewModel?.editTrackerHandler()
+            }
+            
+            let deleteAction = UIAction(
+                title: NSLocalizedString("Delete", comment: ""),
+                attributes: .destructive
+            ) {  [ weak self ] _ in
+                self?.viewModel?.deleteTrackerHandler()
+            }
+            return UIMenu(title: "", children: [pinAction, editAction, deleteAction])
+        }
+    }
+}
+
+private extension TrackerCollectionViewCell {
+    func correctDaysForm(daysCount: Int) -> String {
+        let lastDigit = daysCount % 10
+        let lastTwoDigits = daysCount % 100
+        
+        if lastTwoDigits >= 11 && lastTwoDigits <= 19 {
+            return "дней"
+        } else if lastDigit == 1 {
+            return "день"
+        } else if lastDigit >= 2 && lastDigit <= 4 {
+            return "дня"
+        } else {
+            return "дней"
+        }
     }
 }

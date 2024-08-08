@@ -54,4 +54,19 @@ final class Assembler: AssemblerProtocol {
         view.viewModel = viewModel
         return view
     }
+    
+    static func buildFiltersController(onSelectFilter: @escaping (Filter) -> Void) -> UIViewController {
+        let filtersViewController = FiltersViewController()
+        let presenter = FiltersPresenter(view: filtersViewController, onSelectFilter: onSelectFilter)
+        filtersViewController.presenter = presenter
+        return filtersViewController
+    }
+    
+    static func buildEditTrackerModule(tracker: Tracker, daysCount: Int) -> UIViewController {
+        let editTrackerViewController = EditTrackerViewController()
+        let router = EditTrackerRouter(view: editTrackerViewController)
+        let editTrackerPresenter = EditTrackerPresenter(view: editTrackerViewController, tracker: tracker, daysCount: daysCount, router: router)
+        editTrackerViewController.presenter = editTrackerPresenter
+        return editTrackerViewController
+    }
 }

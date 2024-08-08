@@ -1,0 +1,55 @@
+/* 
+  Localizable.strings
+  Tracker
+
+  Created by Юрий Клеймёнов on 30/07/2024.
+  
+*/
+
+"Monday" = "Понедельник";
+"Tuesday" = "Вторник";
+"Wednesday" = "Среда";
+"Thursday" = "Четверг";
+"Friday" = "Пятница";
+"Saturday" = "Суббота";
+"Sunday" = "Воскресенье";
+
+"What are we gonna track?" = "Что будем отслеживать?";
+"Habits and events can be combined by meaning" = "Привычки и события можно объединить по смыслу";
+"There's nothing to analyse yet" = "Анализировать пока нечего";
+"Nothing found" = "Ничего не найдено";
+
+"That's the technology!" = "Вот это технологии!";
+"Track only what you want" = "Отслеживайте только то, что хотите";
+"Even if it's not litres of water and yoga" = "Даже если это не литры воды и йога";
+
+"Category" = "Категория";
+"Add category" = "Добавить категорию";
+"New category" = "Новая категория";
+"Enter the category name" = "Введите название категории";
+"Done" = "Готово";
+"Schedule" = "Расписание";
+"New habit" = "Новая привычка";
+"New irregular event" = "Новое нерегулярное событие";
+"Cancel" = "Отменить";
+"Create" = "Создать";
+"Color" = "Цвет";
+"Enter the tracker name" = "Введите название трекера";
+"Every day" = "Каждый день";
+"Weekdays" = "Будние";
+"Weekend" = "Выходные";
+"Habit" = "Привычка";
+"Irregular event" = "Нерегулярное событие";
+"Tracker creating" = "Создание трекера";
+"Trackers" = "Трекеры";
+"Filters" = "Фильтры";
+"Search" = "Поиск";
+"Statistic" = "Статистика";
+"Emoji" = "Эмодзи";
+"MonShort" = "Пн";
+"TueShort" = "Вт";
+"WedShort" = "Ср";
+"ThuShort" = "Чт";
+"FriShort" = "Пт";
+"SatShort" = "Сб";
+"SunShort" = "Вс";

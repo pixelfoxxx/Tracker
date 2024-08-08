@@ -56,7 +56,9 @@ final class AddTrackerViewController: UIViewController {
         title = model.title
         view.backgroundColor = model.backgroundColor
         addEventButton.setTitle(model.eventButtonTitle, for: .normal)
+        addEventButton.setTitleColor(.buttonTitle, for: .normal)
         addHabitButton.setTitle(model.habitButtonTitle, for: .normal)
+        addHabitButton.setTitleColor(.buttonTitle, for: .normal)
     }
     
     private func setupAddHabitButton() {

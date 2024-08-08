@@ -8,11 +8,11 @@
 import UIKit
 
 protocol TrackersViewProtocol: AnyObject {
-    var isFiltering: Bool { get }
     var isSearching: Bool { get }
     var currentDate: Date { get }
     func displayData(model: TrackersScreenModel, reloadData: Bool)
     func showCompleteTrackerErrorAlert()
+    func setCurrentDate(date: Date)
 }
 
 final class TrackersViewController: UIViewController {
@@ -30,9 +30,7 @@ final class TrackersViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
-    
-    var isFiltering: Bool = false
-    
+        
     var isSearching: Bool {
         searchController.isActive && !searchBarIsEmpty
     }
@@ -53,11 +51,19 @@ final class TrackersViewController: UIViewController {
     
     var currentDate: Date = {
         let calendar = Calendar.current
-        let date = calendar.startOfDay(for: Date())
-        return date
-    }()
+        return calendar.startOfDay(for: Date())
+    }() {
+        didSet {
+            presenter.filterTrackers(for: currentDate)
+        }
+    }
     
     //MARK: - Lifecycle methods
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.setup()
+        tabBarController?.tabBar.isHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,7 +154,7 @@ final class TrackersViewController: UIViewController {
     }
     
     private func setupFiltersButtonConstraints() {
-        collectionView.addSubview(filtersButton)
+        view.addSubview(filtersButton)
         
         filtersButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -179,7 +185,7 @@ final class TrackersViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.placeholder = NSLocalizedString("Search", comment: "")
         navigationItem.searchController = searchController
     }
     
@@ -204,14 +210,11 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc private func filtersButtonTapped() {
-        // TODO: - Complete logic
+        presenter.didTapFilterButton()
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
-        isFiltering = true
         currentDate = sender.date
-        presenter.filterTrackers(for: currentDate)
-        updateBackgroundViewVisibility()
     }
     
     @objc private func hideKeyboard() {
@@ -234,6 +237,7 @@ extension TrackersViewController: TrackersViewProtocol {
         if reloadData {
             collectionView.reloadData()
         }
+        updateBackgroundViewVisibility()
     }
     
     func showCreateController(viewController: UIViewController) {
@@ -247,6 +251,10 @@ extension TrackersViewController: TrackersViewProtocol {
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
         present(alertController, animated: true)
+    }
+    
+    func setCurrentDate(date: Date) {
+        currentDate = date
     }
 }
 

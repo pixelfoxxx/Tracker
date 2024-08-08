@@ -64,9 +64,9 @@ final class CategoryViewModel {
     
     private func buildScreenModel() -> CategoryScreenModel {
         return CategoryScreenModel(
-            title: "Категория",
+            title: NSLocalizedString("Category", comment: ""),
             tableData: buildTableData(),
-            buttonTitle: "Добавить категорию"
+            buttonTitle: NSLocalizedString("Add category", comment: "")
         )
     }
     

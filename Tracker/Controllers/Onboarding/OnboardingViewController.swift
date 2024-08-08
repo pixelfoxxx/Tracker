@@ -12,11 +12,11 @@ final class OnboardingViewController: UIPageViewController {
     private lazy var onboardingPages: [UIViewController] = {
         let page1 = OnboardingPageViewController(
             backgroundImage: Assets.Images.Onboarding.firstScreen ?? UIImage(),
-            titleString: "Отслеживайте только то, что хотите"
+            titleString: NSLocalizedString("Track only what you want", comment: "")
         )
         let page2 = OnboardingPageViewController(
             backgroundImage: Assets.Images.Onboarding.secondScreen ?? UIImage(),
-            titleString: "Даже если это не литры воды и йога"
+            titleString: NSLocalizedString("Even if it's not litres of water and yoga", comment: "")
         )
         return [page1, page2]
     }()
@@ -36,7 +36,8 @@ final class OnboardingViewController: UIPageViewController {
         button.layer.cornerRadius = .radius
         button.clipsToBounds = true
         button.backgroundColor = .buttons
-        button.setTitle(NSLocalizedString("Вот это технологии!", comment: ""), for: .normal)
+        button.setTitle(NSLocalizedString("That's the technology!", comment: ""), for: .normal)
+        button.setTitleColor(.buttonTitle, for: .normal)
         button.addTarget(self, action: #selector(navigateToMainScreen), for: .touchUpInside)
         return button
     }()
@@ -52,13 +53,13 @@ final class OnboardingViewController: UIPageViewController {
     private func finishOnboarding() {
         let userDefaults = UserDefaults.standard
         userDefaults.set(true, forKey: "hasSeenOnboarding")
-        
-        // Переход на основной экран
+    
         let mainViewController = TabBarViewController()
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             sceneDelegate.window?.rootViewController = mainViewController
         }
     }
+    
     private func initializeFirstPage() {
         if let firstPage = onboardingPages.first {
             setViewControllers([firstPage], direction: .forward, animated: true, completion: nil)

@@ -94,23 +94,22 @@ final class BackgroundView: UIView {
     
     private func configureTrackersDoNotExistState() {
         imageView.image = Assets.Images.Background.emptyTrackers
-        textLabel.text = "Что будем отслеживать?"
+        textLabel.text = NSLocalizedString("What are we gonna track?", comment: "")
     }
     
     private func configureCategoriesDoNonExistState() {
         imageView.image = Assets.Images.Background.emptyTrackers
-        textLabel.text = "Привычки и события можно объединить по смыслу"
-        textLabel.numberOfLines = 2
+        textLabel.text = NSLocalizedString("Habits and events can be combined by meaning", comment: "")
     }
     
     private func configureEmptyStatisticState() {
         imageView.image = Assets.Images.Background.emptyStatistic
-        textLabel.text = "Анализировать пока нечего"
+        textLabel.text = NSLocalizedString("There's nothing to analyse yet", comment: "")
     }
     
     private func configureEmptySearchResultsState() {
         imageView.image = Assets.Images.Background.emptySearchResults
-        textLabel.text = "Ничего не найдено"
+        textLabel.text = NSLocalizedString("Nothing found", comment: "")
     }
     
     private func configureEmptyState() {
